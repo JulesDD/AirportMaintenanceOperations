@@ -13,8 +13,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AircraftMaintenanceOperations.API\AircraftMaintenanceOperations.API.csproj" />
-    <ProjectReference Include="..\..\src\AirportMaintenanceOperations.Application\AirportMaintenanceOperations.Application.csproj" />
-    <ProjectReference Include="..\..\src\AirportMaintenanceOperations.Domain\AirportMaintenanceOperations.Domain.csproj" />
+    <ProjectReference Include="..\..\src\AirportMaintenanceOperations.Application\AircraftMaintenanceOperations.Application.csproj" />
+    <ProjectReference Include="..\..\src\AirportMaintenanceOperations.Domain\AircraftMaintenanceOperations.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

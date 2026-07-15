@@ -11,8 +11,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirportMaintenanceOperations.Application\AirportMaintenanceOperations.Application.csproj" />
-    <ProjectReference Include="..\AirportMaintenanceOperations.Infrastructure\AirportMaintenanceOperations.Infrastructure.csproj" />
+    <ProjectReference Include="..\AirportMaintenanceOperations.Application\AircraftMaintenanceOperations.Application.csproj" />
+    <ProjectReference Include="..\AirportMaintenanceOperations.Infrastructure\AircraftMaintenanceOperations.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Configuration\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Extensions\" />
+    <Folder Include="Middleware\" />
+    <Folder Include="Authentication\" />
   </ItemGroup>
 
 </Project>

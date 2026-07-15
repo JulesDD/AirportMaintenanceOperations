@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirportMaintenanceOperations.Application\AirportMaintenanceOperations.Application.csproj" />
+    <ProjectReference Include="..\AirportMaintenanceOperations.Application\AircraftMaintenanceOperations.Application.csproj" />
   </ItemGroup>
 
 </Project>

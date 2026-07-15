@@ -11,6 +11,7 @@
     <Folder Include="Features\Aircraft\" />
     <Folder Include="Features\MaintenanceRequests\" />
     <Folder Include="Features\Inventory\" />
+    <Folder Include="Features\Authentication\" />
     <Folder Include="Features\WorkOrders\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Behaviors\" />
@@ -19,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirportMaintenanceOperations.Domain\AirportMaintenanceOperations.Domain.csproj" />
+    <ProjectReference Include="..\AirportMaintenanceOperations.Domain\AircraftMaintenanceOperations.Domain.csproj" />
   </ItemGroup>
 
 </Project>
