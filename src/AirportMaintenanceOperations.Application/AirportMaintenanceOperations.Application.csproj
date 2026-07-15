@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="DTOs\" />
+    <Folder Include="Features\Aircraft\" />
+    <Folder Include="Features\MaintenanceRequests\" />
+    <Folder Include="Features\Inventory\" />
+    <Folder Include="Features\WorkOrders\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Behaviors\" />
+    <Folder Include="Mappings\" />
+    <Folder Include="Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AirportMaintenanceOperations.Domain\AirportMaintenanceOperations.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

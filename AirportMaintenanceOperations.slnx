@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/AircraftMaintenanceOperations.API/AircraftMaintenanceOperations.API.csproj" />
+    <Project Path="src/AirportMaintenanceOperations.Application/AirportMaintenanceOperations.Application.csproj" />
+    <Project Path="src/AirportMaintenanceOperations.Domain/AirportMaintenanceOperations.Domain.csproj" />
+    <Project Path="src/AirportMaintenanceOperations.Infrastructure/AirportMaintenanceOperations.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/AirportMaintenanceOperations.Tests/AirportMaintenanceOperations.Tests.csproj" />
+  </Folder>
+</Solution>
