@@ -1,0 +1,2 @@
+﻿global using AircraftMaintenanceOperations.Domain.Enums;
+global using AircraftMaintenanceOperations.Domain.Common;
