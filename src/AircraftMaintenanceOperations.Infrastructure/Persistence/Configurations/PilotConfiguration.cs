@@ -8,8 +8,13 @@ namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Configuration
 
 public class PilotConfiguration : IEntityTypeConfiguration<Pilot>
 {
-    public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Pilot> builder)
+    public void Configure(EntityTypeBuilder<Pilot> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(x => x.Id);
+
+        builder.HasOne<Aircraft>()
+            .WithOne(a => a.CurrentPilot)
+            .HasForeignKey<Aircraft>(x => x.CurrentPilotId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

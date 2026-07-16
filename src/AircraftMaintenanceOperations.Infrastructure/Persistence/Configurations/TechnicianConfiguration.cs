@@ -2,8 +2,8 @@
 
 public class TechnicianConfiguration : IEntityTypeConfiguration<Technician>
 {
-    public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Technician> builder)
+    public void Configure(EntityTypeBuilder<Technician> builder)
     {
-        throw new NotImplementedException();
+        builder.HasKey(x => x.Id);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace AircraftMaintenanceOperations.Domain.Entities;
 
-public class MaintenanceRequest
+public class MaintenanceRequest : BaseEntity
 {
     public Guid AircraftId { get; set; }
     public Guid ReportedByUserId { get; set; }

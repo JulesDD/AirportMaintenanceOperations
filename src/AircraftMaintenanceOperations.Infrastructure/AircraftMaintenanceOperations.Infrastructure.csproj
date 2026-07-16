@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AirportMaintenanceOperations.Application\AircraftMaintenanceOperations.Application.csproj" />
+    <ProjectReference Include="..\AircraftMaintenanceOperations.Domain\AircraftMaintenanceOperations.Domain.csproj" />
   </ItemGroup>
 
 </Project>

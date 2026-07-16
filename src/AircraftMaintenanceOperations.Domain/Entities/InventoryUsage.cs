@@ -1,6 +1,6 @@
 ﻿namespace AircraftMaintenanceOperations.Domain.Entities;
 
-public class InventoryUsage
+public class InventoryUsage : BaseEntity
 {
     public Guid InventoryPartId { get; set; }
     public InventoryPart InventoryPart { get; set; } = null!;
