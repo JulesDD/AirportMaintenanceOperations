@@ -2,7 +2,7 @@
 
 public class Aircraft : BaseEntity
 {
-    public string TailNumber { get; private set; } = string.Empty;
+    public string TailNumber { get; set; } = string.Empty;
     public string Manufacturer { get; set; } = string.Empty;
     public int Year { get; set; }
     public string SerialNumber { get; set; } = string.Empty;
@@ -48,4 +48,6 @@ public class Aircraft : BaseEntity
     {
         CurrentPilotId = pilotId;
     }
+
+    
 }

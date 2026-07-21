@@ -8,21 +8,23 @@
 
   <ItemGroup>
     <Folder Include="Features\Aircraft\Commands\UpdateAircraft\" />
-    <Folder Include="Features\Aircraft\Commands\DeleteAircraft\" />
-    <Folder Include="Features\Aircraft\Commands\CreateAircraft\" />
-    <Folder Include="Features\Aircraft\DTOs\" />
     <Folder Include="Features\Aircraft\Mappings\" />
-    <Folder Include="Features\Aircraft\Queries\GetAircraft\" />
-    <Folder Include="Features\Aircraft\Queries\GetAircraftById\" />
     <Folder Include="Features\Aircraft\Validators\CreateAircraftValidator\" />
     <Folder Include="Features\Aircraft\Validators\UpdateAircraftValidator\" />
     <Folder Include="Features\MaintenanceRequests\" />
     <Folder Include="Features\Inventory\" />
     <Folder Include="Features\Authentication\" />
     <Folder Include="Features\WorkOrders\" />
-    <Folder Include="Interfaces\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Common\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Cqrs" Version="6.0.0.76" />
+    <PackageReference Include="FluentValidation" Version="12.1.1" />
+    <PackageReference Include="MediatR" Version="14.2.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+    <PackageReference Include="System.ObjectModel" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -6,14 +6,14 @@ public class AircraftMaintenanceDbContext : DbContext
     {
     }
 
-    public DbSet<Aircraft> Aircraft { get; set; }
-    public DbSet<Pilot> Pilots { get; set; }
-    public DbSet<Technician> Technicians { get; set; }
-    public DbSet<MaintenanceRequest> MaintenanceRequests { get; set; }
-    public DbSet<WorkOrder> WorkOrders { get; set; }
-    public DbSet<InventoryPart> InventoryParts { get; set; }
-    public DbSet<InventoryUsage> InventoryUsages { get; set; }
-    public DbSet<User> Users { get; set; }
+    public DbSet<Aircraft> Aircrafts => Set<Aircraft>();
+    public DbSet<Pilot> Pilots => Set<Pilot>();
+    public DbSet<Technician> Technicians => Set<Technician>();
+    public DbSet<MaintenanceRequest> MaintenanceRequests => Set<MaintenanceRequest>();
+    public DbSet<WorkOrder> WorkOrders => Set<WorkOrder>();
+    public DbSet<InventoryPart> InventoryParts => Set<InventoryPart>();
+    public DbSet<InventoryUsage> InventoryUsages => Set<InventoryUsage>();
+    public DbSet<User> Users => Set<User>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

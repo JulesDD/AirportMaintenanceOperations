@@ -2,8 +2,12 @@
 
 public enum AircraftStatus
 {
-    Operational,
-    UnderMaintenance,
     Grounded,
+    InspectionPending,
+    UnderMaintenance,
+    MaintenanceCompleted,
+    ReturnToServicePending,
+    Operational,
+    Archived,
     OutOfService
 }
