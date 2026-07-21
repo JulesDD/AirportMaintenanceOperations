@@ -2,4 +2,3 @@
 
 public record GetAircraftsQuery : IQuery<GetAircraftsResult>;
 public record GetAircraftsResult(IEnumerable<AircraftDto> Aircrafts);
-}

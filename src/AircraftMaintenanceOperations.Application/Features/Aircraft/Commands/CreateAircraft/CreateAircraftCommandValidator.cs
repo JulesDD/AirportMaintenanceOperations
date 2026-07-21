@@ -7,7 +7,8 @@ public class CreateAircraftCommandValidator : AbstractValidator<CreateAircraftCo
     {
         _dbContext = dbContext;
 
-        RuleFor(x => x.TailNumber).NotEmpty().MustAsync(BeUniqueTailNumber).WithMessage("Tail number is required.");
+        RuleFor(x => x.TailNumber).NotEmpty().WithMessage("Tail number is required.");
+        RuleFor(x => x.TailNumber).MustAsync(BeUniqueTailNumber).WithMessage("Tail number must be unique.");
         RuleFor(x => x.Manufacturer).NotEmpty().WithMessage("Manufacturer is required.");
         RuleFor(x => x.Model).NotEmpty().WithMessage("Model is required.");
         RuleFor(x => x.SerialNumber).NotEmpty().WithMessage("Serial number is required.");
@@ -18,6 +19,6 @@ public class CreateAircraftCommandValidator : AbstractValidator<CreateAircraftCo
     {
         // return true if the tail number does not exist in the database, false otherwise
 
-        return !await _dbContext.Aircraft.AnyAsync(a => a.TailNumber == tailNumber, cancellationToken);
+        return !await _dbContext.Aircrafts.AnyAsync(a => a.TailNumber == tailNumber, cancellationToken);
     }
 }

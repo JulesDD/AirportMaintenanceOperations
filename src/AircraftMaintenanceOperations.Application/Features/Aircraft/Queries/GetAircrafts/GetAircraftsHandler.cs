@@ -5,7 +5,6 @@ public record GetAircraftsHandler(IAircraftMaintenanceDbContext dbContext) : IQu
     public async Task<GetAircraftsResult> Handle(GetAircraftsQuery query, CancellationToken cancellationToken)
     {
         var aircrafts = await dbContext.Aircrafts
-            .Include(a => a.Year)
             .OrderBy(a => a.TailNumber)
             .ToListAsync(cancellationToken);
 

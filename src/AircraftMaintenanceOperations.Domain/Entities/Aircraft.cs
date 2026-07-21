@@ -39,15 +39,34 @@ public class Aircraft : BaseEntity
         Status = AircraftStatus.Operational;
     }
 
-    public void UpdateFlightHours(double hours)
-    {
-        if (hours <= 0) throw new ArgumentException("Flight hours must be greater than zero.");
-    }
-
     public void AssignPilot(Guid pilotId)
     {
         CurrentPilotId = pilotId;
     }
 
-    
+    public void Archive()
+    {
+        Status = AircraftStatus.Archived;
+    }
+
+    public void AssignPilot(Pilot pilot)
+    {
+        CurrentPilot = pilot;
+        CurrentPilotId = pilot.Id;
+    }
+
+    public void UnassignPilot()
+    {
+        CurrentPilot = null;
+        CurrentPilotId = null;
+    }
+
+    public void updateFlightHours(double flightHours)
+    {
+        if (flightHours < 0)
+        {
+            throw new ArgumentException("Flight hours cannot be negative.");
+        }
+        FlightHours = flightHours;
+    }
 }

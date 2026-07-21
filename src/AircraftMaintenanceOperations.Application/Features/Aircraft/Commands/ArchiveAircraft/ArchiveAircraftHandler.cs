@@ -12,7 +12,7 @@ public class ArchiveAircraftHandler(IAircraftMaintenanceDbContext dbContext) : I
         //dbContext.Aircraft.Archive(aircraft);
 
         // archive the aircraft table by setting the status to Archived 
-        aircraft.Status = AircraftStatus.Archived;
+        aircraft.Archive();
         await dbContext.SaveChangesAsync(cancellationToken);
 
         return new ArchiveAircraftResult(true);

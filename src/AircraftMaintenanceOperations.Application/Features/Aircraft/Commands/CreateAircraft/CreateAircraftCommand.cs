@@ -6,8 +6,7 @@ public record CreateAircraftCommand(
     string Manufacturer,
     string SerialNumber,
     int YearOfManufacture,
-    string CurrentLocation,
-    string Status
+    string CurrentLocation
     ) : ICommand<CreateAircraftCommandResult>;
 
 public record CreateAircraftCommandResult(Guid AircraftId);

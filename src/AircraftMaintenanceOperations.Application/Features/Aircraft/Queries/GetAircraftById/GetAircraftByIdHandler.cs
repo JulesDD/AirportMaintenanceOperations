@@ -7,13 +7,12 @@ public class GetAircraftByIdHandler(IAircraftMaintenanceDbContext dbContext) : I
         var aircrafts = await dbContext.Aircrafts
             .Where(a => a.Id == query.AircraftId)
             .OrderBy(a => a.TailNumber)
-            .ToListAsync(cancellationToken);
+            .FirstOrDefaultAsync(cancellationToken);
 
-        return new GetAircraftByIdResult(aircrafts.Select(a => new AircraftDto(
-            a.TailNumber,
-            a.Manufacturer,
-            a.Model, 
-            a.SerialNumber,
-            a.Year)));
+        return new GetAircraftByIdResult(aircrafts == null ? null : new AircraftDto(aircrafts.TailNumber,
+            aircrafts.Manufacturer,
+            aircrafts.Model, 
+            aircrafts.SerialNumber,
+            aircrafts.Year));
     }
 }
