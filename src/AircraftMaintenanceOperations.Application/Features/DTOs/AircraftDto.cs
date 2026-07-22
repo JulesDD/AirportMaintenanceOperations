@@ -1,4 +1,4 @@
-﻿namespace AircraftMaintenanceOperations.Application.Features.Aircraft.DTOs;
+﻿namespace AircraftMaintenanceOperations.Application.Features.DTOs;
 
 public record AircraftDto
 (

@@ -16,8 +16,9 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Extensions\" />
+    <Folder Include="Endpoints\Aircraft\" />
+    <Folder Include="Endpoints\Pilot\" />
+    <Folder Include="Extensions\DependencyInjection\" />
     <Folder Include="Middleware\" />
     <Folder Include="Authentication\" />
   </ItemGroup>

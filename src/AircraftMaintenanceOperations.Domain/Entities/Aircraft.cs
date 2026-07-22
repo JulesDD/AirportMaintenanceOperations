@@ -39,20 +39,22 @@ public class Aircraft : BaseEntity
         Status = AircraftStatus.Operational;
     }
 
-    public void AssignPilot(Guid pilotId)
-    {
-        CurrentPilotId = pilotId;
-    }
-
     public void Archive()
     {
         Status = AircraftStatus.Archived;
     }
 
-    public void AssignPilot(Pilot pilot)
+    public DomainResult AssignPilot(Pilot pilot)
     {
+        if (CurrentPilot != null) return new(false, "This aircraft already has a pilot assigned. Please unassign the current pilot first.");
+        if (Status == AircraftStatus.Archived) return new(false, "Cannot assign a pilot to an archived aircraft.");
+        if (Status == AircraftStatus.OutOfService) return new(false, "Cannot assign a pilot to an out-of-service aircraft. The aircraft must be returned to service first.");
+        if (pilot.Id == Guid.Empty) return new(false, "Pilot must have a valid ID.");
+
         CurrentPilot = pilot;
         CurrentPilotId = pilot.Id;
+
+        return new(true);
     }
 
     public void UnassignPilot()
@@ -61,12 +63,33 @@ public class Aircraft : BaseEntity
         CurrentPilotId = null;
     }
 
-    public void updateFlightHours(double flightHours)
+    public void UpdateFlightHours(double flightHours)
     {
         if (flightHours < 0)
         {
             throw new ArgumentException("Flight hours cannot be negative.");
         }
         FlightHours = flightHours;
+    }
+
+    public static Aircraft Create(
+        string tailNumber,
+        string manufacturer,
+        string model,
+        string serialNumber,
+        int year,
+        string currentAirport)
+    {
+        return new Aircraft
+        {
+            TailNumber = tailNumber,
+            Manufacturer = manufacturer,
+            Model = model,
+            SerialNumber = serialNumber,
+            Year = year,
+            CurrentAirport = currentAirport,
+            Status = AircraftStatus.Grounded,
+            FlightHours = 0
+        };
     }
 }
