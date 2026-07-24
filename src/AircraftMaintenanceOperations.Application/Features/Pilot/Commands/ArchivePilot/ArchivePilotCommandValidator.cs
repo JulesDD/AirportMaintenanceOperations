@@ -1,8 +1,8 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Pilot.Queries.ArchivePilot;
 
-public class ArchivePilotRequestValidator : AbstractValidator<ArchivePilotRequest>
+public class ArchivePilotCommandValidator : AbstractValidator<ArchivePilotCommand>
 {
-    public ArchivePilotRequestValidator()
+    public ArchivePilotCommandValidator()
     {
         RuleFor(x => x.PilotId).NotEmpty().WithMessage("Pilot ID is required");
     }

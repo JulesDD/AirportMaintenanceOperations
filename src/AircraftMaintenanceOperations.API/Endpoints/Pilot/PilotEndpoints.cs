@@ -58,15 +58,15 @@ public class PilotEndpoints : ICarterModule
             .WithSummary("Gets pilot by Id.")
             .WithDescription("Get pilot by Id.");
 
-        app.MapPatch("/api/pilot/{id:guid}/archive", async (ArchivePilotRequest request, ISender sender) =>
+        app.MapPatch("/api/pilot/{id:guid}/archive", async (ArchivePilotCommand request, ISender sender) =>
         {
-            var command = request.Adapt<ArchivePilotRequest>();
+            var command = request.Adapt<ArchivePilotCommand>();
             var result = await sender.Send(command);
-            var response = result.Adapt<ArchivePilotRequestResult>();
+            var response = result.Adapt<ArchivePilotCommandResult>();
             return Results.Ok(response);
         })
             .WithName("ArchivePilot")
-            .Produces<ArchivePilotRequestResult>(StatusCodes.Status200OK)
+            .Produces<ArchivePilotCommandResult>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Archive Pilot.")
             .WithDescription("Archive Pilot");

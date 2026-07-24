@@ -1,6 +1,8 @@
-﻿namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
+﻿using AircraftMaintenanceOperations.Application.Interfaces;
 
-public static class InfrastructureServiceCollectionExtensions
+namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
+
+public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {
@@ -9,6 +11,8 @@ public static class InfrastructureServiceCollectionExtensions
         {
             options.UseSqlServer(configuration.GetConnectionString("AircraftMaintenanceConnection"));
         });
+
+        services.AddScoped<IAircraftMaintenanceDbContext>(provider => provider.GetRequiredService<AircraftMaintenanceDbContext>());
         // Add repositories
         //services.AddScoped<IAircraftRepository, AircraftRepository>();
         //services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();

@@ -1,6 +1,8 @@
-﻿namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
+﻿using AircraftMaintenanceOperations.Application.Interfaces;
 
-public class AircraftMaintenanceDbContext : DbContext
+namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
+
+public class AircraftMaintenanceDbContext : DbContext, IAircraftMaintenanceDbContext
 {
     public AircraftMaintenanceDbContext(DbContextOptions<AircraftMaintenanceDbContext> options) : base(options)
     {

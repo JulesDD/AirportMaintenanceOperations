@@ -1,16 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Configurations;
+﻿namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Configurations;
 
 public class PilotConfiguration : IEntityTypeConfiguration<Pilot>
 {
     public void Configure(EntityTypeBuilder<Pilot> builder)
     {
         builder.HasKey(x => x.Id);
+
+        builder.HasIndex(x => x.LicenseNumber).IsUnique();
+
+        builder.Property(x => x.Status)
+                .HasConversion<string>();
+
+        builder.Property(x => x.Rank)
+               .HasMaxLength(50);
+
+        builder.Property(x => x.LicenseNumber)
+               .HasMaxLength(50);
 
         builder.HasOne<Aircraft>()
             .WithOne(a => a.CurrentPilot)
