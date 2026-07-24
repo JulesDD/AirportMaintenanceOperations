@@ -1,6 +1,6 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Aircraft.Commands.CreateAircraft;
 
-public class CreateAircraftHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<CreateAircraftCommand, CreateAircraftCommandResult>
+public class CreateAircraftCommandHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<CreateAircraftCommand, CreateAircraftCommandResult>
 {
     public async Task<CreateAircraftCommandResult> Handle(CreateAircraftCommand command, CancellationToken cancellationToken)
     {

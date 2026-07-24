@@ -1,6 +1,4 @@
-﻿using AircraftMaintenanceOperations.Application.Features.DTOs;
+﻿namespace AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraftById;
 
-namespace AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraftById;
-
-public record GetAircraftByIdQuery(Guid AircraftId) : IQuery<GetAircraftByIdResult>;
-public record GetAircraftByIdResult(AircraftDto? Aircrafts);
+public record GetAircraftByIdQuery(Guid AircraftId) : IQuery<GetAircraftByIdQueryResult>;
+public record GetAircraftByIdQueryResult(AircraftDto? Aircrafts);

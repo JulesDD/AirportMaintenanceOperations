@@ -1,8 +1,8 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraft;
 
-public record GetAircraftsHandler(IAircraftMaintenanceDbContext dbContext) : IQueryHandler<GetAircraftsQuery, GetAircraftsResult>
+public record GetAircraftQueryHandler(IAircraftMaintenanceDbContext dbContext) : IQueryHandler<GetAircraftQuery, GetAircraftsResult>
 {
-    public async Task<GetAircraftsResult> Handle(GetAircraftsQuery query, CancellationToken cancellationToken)
+    public async Task<GetAircraftsResult> Handle(GetAircraftQuery query, CancellationToken cancellationToken)
     {
         var aircrafts = await dbContext.Aircrafts
             .OrderBy(a => a.TailNumber)

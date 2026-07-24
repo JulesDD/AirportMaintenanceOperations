@@ -50,6 +50,7 @@ public class Aircraft : BaseEntity
         if (Status == AircraftStatus.Archived) return new(false, "Cannot assign a pilot to an archived aircraft.");
         if (Status == AircraftStatus.OutOfService) return new(false, "Cannot assign a pilot to an out-of-service aircraft. The aircraft must be returned to service first.");
         if (pilot.Id == Guid.Empty) return new(false, "Pilot must have a valid ID.");
+        if (pilot.Status != PilotStatus.Active) return new(false, "Only active pilots maybe assigned to an aircraft.");
 
         CurrentPilot = pilot;
         CurrentPilotId = pilot.Id;
