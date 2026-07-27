@@ -1,7 +1,7 @@
 ﻿namespace AircraftMaintenanceOperations.API.Extensions;
 public static class DependencyInjection
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddApplication(this IServiceCollection services)
     {
         // Here you would typically register your application services, such as MediatR handlers, validators, etc.
         services.AddMediatR(cfg =>

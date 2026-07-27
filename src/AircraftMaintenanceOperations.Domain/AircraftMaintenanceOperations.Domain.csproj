@@ -13,4 +13,8 @@
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Language.Intellisense" Version="17.14.249" />
+  </ItemGroup>
+
 </Project>
