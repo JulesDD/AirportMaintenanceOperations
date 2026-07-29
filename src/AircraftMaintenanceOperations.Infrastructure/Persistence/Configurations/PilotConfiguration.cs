@@ -4,8 +4,6 @@ public class PilotConfiguration : IEntityTypeConfiguration<Pilot>
 {
     public void Configure(EntityTypeBuilder<Pilot> builder)
     {
-        builder.HasKey(x => x.Id);
-
         builder.HasIndex(x => x.LicenseNumber).IsUnique();
 
         builder.Property(x => x.Status)

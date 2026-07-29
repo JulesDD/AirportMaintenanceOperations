@@ -2,18 +2,16 @@
 
 public class CreatePilotCommandValidator : AbstractValidator<CreatePilotCommand>
 {
-    private readonly IAircraftMaintenanceDbContext _dbContext;
-    public CreatePilotCommandValidator(IAircraftMaintenanceDbContext dbContext)
-    {
-        _dbContext = dbContext;
 
+    public CreatePilotCommandValidator()
+    {
         RuleFor(x => x.Rank).NotEmpty().WithMessage("Pilot Rank is required");
         RuleFor(x => x.LicenseNumber).NotEmpty().WithMessage("Please provide a license Number for the Pilot");
-        RuleFor(x => x.LicenseNumber).MustAsync(BeUniqueLicenseNumber).WithMessage("License Number must be unique. No duplicates");
+        //RuleFor(x => x.LicenseNumber).MustAsync(BeUniqueLicenseNumber).WithMessage("License Number must be unique. No duplicates");
     }
 
-    private async Task<bool> BeUniqueLicenseNumber(string LicenseNumber, CancellationToken cancellationToken)
-    {
-        return !await _dbContext.Pilots.AnyAsync(p => p.LicenseNumber == LicenseNumber, cancellationToken);
-    }
+    //private async Task<bool> BeUniqueLicenseNumber(string LicenseNumber, CancellationToken cancellationToken)
+    //{
+    //    return !await _dbContext.Pilots.AnyAsync(p => p.LicenseNumber == LicenseNumber, cancellationToken);
+    //}
 }

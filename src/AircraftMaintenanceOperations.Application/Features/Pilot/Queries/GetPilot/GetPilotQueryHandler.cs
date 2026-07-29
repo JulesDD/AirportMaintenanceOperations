@@ -1,14 +1,19 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Pilot.Queries.GetPilot;
 
-public record GetPilotQueryHandler(IAircraftMaintenanceDbContext dbContext) : IQueryHandler<GetPilotQuery, GetPilotQueryResult>
+public record GetPilotQueryHandler(IAircraftMaintenanceDbContext dbContext) : IQueryHandler<GetPilotQuery, GetPilotResult>
 {
-    public async Task<GetPilotQueryResult> Handle(GetPilotQuery query, CancellationToken cancellationToken)
+    public async Task<GetPilotResult> Handle(GetPilotQuery query, CancellationToken cancellationToken)
     {
         var pilots = await dbContext.Pilots
             .OrderBy(p => p.Rank) 
             .ToListAsync(cancellationToken);
 
-        return new GetPilotQueryResult(pilots.Select(p => new PilotDto(
+        return new GetPilotResult(pilots.Select(p => new PilotDto(
+            p.EmployeeNumber,
+            p.FirstName,
+            p.LastName,
+            p.Email,
+            p.PhoneNumber,
             p.Rank,
             p.LicenseNumber)));
     }

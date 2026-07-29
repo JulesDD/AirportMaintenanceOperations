@@ -1,15 +1,22 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Pilot.Commands.UpdatePilot;
 
-public class UpdatePilotCommandHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<UpdatePilotCommand, UpdatePilotCommandResult>
+public class UpdatePilotCommandHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<UpdatePilotCommand, UpdatePilotResult>
 {
-    public async Task<UpdatePilotCommandResult> Handle(UpdatePilotCommand command, CancellationToken cancellationToken)
+    public async Task<UpdatePilotResult> Handle(UpdatePilotCommand command, CancellationToken cancellationToken)
     {
-        var pilot = await dbContext.Pilots.FindAsync([command.PilotId], cancellationToken: cancellationToken);
-        if (pilot == null) return new UpdatePilotCommandResult(false);
+        var pilot = await dbContext.Pilots.FindAsync([command.Id], cancellationToken: cancellationToken);
+        if (pilot == null) return new UpdatePilotResult(false);
 
-        pilot.Update(command.Rank, command.LicenseNumber);
+        pilot.Update(
+            command.FirstName,
+            command.LastName,
+            command.Email,
+            command.PhoneNumber,
+            command.Rank, 
+            command.LicenseNumber
+            );
         await dbContext.SaveChangesAsync(cancellationToken);
 
-        return new UpdatePilotCommandResult(true);
+        return new UpdatePilotResult(true);
     }
 }

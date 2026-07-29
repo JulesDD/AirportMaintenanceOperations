@@ -4,15 +4,13 @@ public class WorkOrderConfiguration : IEntityTypeConfiguration<WorkOrder>
 {
     public void Configure(EntityTypeBuilder<WorkOrder> builder)
     {
-        builder.HasKey(wo => wo.Id);
-
-        builder.HasOne<Technician>()
+        builder.HasOne(wo => wo.Technician)
             .WithMany()
             .HasForeignKey(wo => wo.TechnicianId)
             .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasMany<InventoryUsage>()
-            .WithOne()
+        builder.HasMany(wo => wo.InventoryUsages)
+            .WithOne(iu => iu.WorkOrder)
             .HasForeignKey(iu => iu.WorkOrderId)
             .OnDelete(DeleteBehavior.Cascade);
 
@@ -23,5 +21,7 @@ public class WorkOrderConfiguration : IEntityTypeConfiguration<WorkOrder>
         builder.Property(wo => wo.EstimatedCompletionDate).IsRequired();
         builder.Property(wo => wo.EstimatedCompletionPercent).HasPrecision(5, 2).IsRequired();
         builder.Property(wo => wo.LaborNotes).HasConversion<string>().IsRequired().HasMaxLength(1000);
+        builder.Property(wo => wo.ActualCompletionPercent).HasPrecision(5, 2);
+        builder.Property(wo => wo.LaborHours).HasPrecision(8, 2);
     }
 }

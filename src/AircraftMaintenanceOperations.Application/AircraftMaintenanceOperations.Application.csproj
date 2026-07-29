@@ -7,10 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Aircraft\Commands\UpdateAircraft\" />
     <Folder Include="Features\Aircraft\Mappings\" />
-    <Folder Include="Features\Aircraft\Validators\CreateAircraftValidator\" />
-    <Folder Include="Features\Aircraft\Validators\UpdateAircraftValidator\" />
     <Folder Include="Features\MaintenanceRequests\" />
     <Folder Include="Features\Inventory\" />
     <Folder Include="Features\Authentication\" />

@@ -7,23 +7,53 @@ public class Pilot : User
     public PilotStatus Status { get; set; }
 
     public static Pilot Create(
+        string employeeNumber,
+        string firstName,
+        string lastName,
+        string email,
+        string phoneNumber,
         string rank,
-        string liscenseNumber)
+        string licenseNumber)
     {
         return new Pilot
         {
+            EmployeeNumber = employeeNumber,
+            FirstName = firstName,
+            LastName = lastName,
+            Email = email,
+            PhoneNumber = phoneNumber,
+            Role = Role.Pilot,
             Rank = rank,
-            LicenseNumber = liscenseNumber,
+            LicenseNumber = licenseNumber,
             Status = PilotStatus.Active
         };
     }
 
     public void Update(
-    string rank,
-    string licenseNumber)
+        string firstName,
+        string lastName,
+        string email,
+        string phoneNumber,
+        string rank,
+        string licenseNumber)
     {
-        Rank = rank;
-        LicenseNumber = licenseNumber;
+        if (firstName is not null)
+            FirstName = firstName;
+
+        if (lastName is not null)
+            LastName = lastName;
+
+        if (email is not null)
+            Email = email;
+
+        if (phoneNumber is not null)
+            PhoneNumber = phoneNumber;
+
+        if (rank is not null)
+            Rank = rank;
+
+        if (licenseNumber is not null)
+            LicenseNumber = licenseNumber;
     }
 
     public void StartBreak()

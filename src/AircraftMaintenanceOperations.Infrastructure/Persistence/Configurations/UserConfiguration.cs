@@ -8,6 +8,11 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.HasIndex(x => x.Email).IsUnique();
 
+        builder.HasDiscriminator<string>("Discriminator")
+            .HasValue<User>("User")
+            .HasValue<Pilot>("Pilot")
+            .HasValue<Technician>("Technician");
+
         builder.Property(x => x.EmployeeNumber).HasMaxLength(50).IsRequired();
         builder.Property(x => x.FirstName).HasMaxLength(50).IsRequired();
         builder.Property(x => x.LastName).HasMaxLength(50).IsRequired();

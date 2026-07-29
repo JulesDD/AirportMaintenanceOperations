@@ -1,6 +1,7 @@
-﻿global using AircraftMaintenanceOperations.API.Extensions;
+﻿global using AircraftMaintenanceOperations.Application.Extensions;
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Commands.ArchiveAircraft;
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Commands.CreateAircraft;
+global using AircraftMaintenanceOperations.Application.Features.Aircraft.Commands.UpdateAircraft;
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraft;
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraftById;
 global using AircraftMaintenanceOperations.Application.Features.AssignPilot.Command;

@@ -13,6 +13,8 @@ public class WorkOrder : BaseEntity
     public decimal ActualCompletionPercent { get; set; }
     public decimal LaborHours { get; set; }
     public string? LaborNotes { get; set; }
+    public ICollection<InventoryUsage> InventoryUsages { get; set; }
+    = new List<InventoryUsage>();
 
     public void AssignTechnician(Guid technicianId)
     {

@@ -1,40 +1,33 @@
-﻿namespace AircraftMaintenanceOperations.API.Endpoints.Aircraft;
+﻿using AircraftMaintenanceOperations.Application.Features.Aircraft.Commands.UpdateAircraft;
 
-public record CreateAircraftRequest(
-    string TailNumber,
-    string Manufacturer,
-    string Model,
-    string SerialNumber,
-    int YearOfManufacture
-    );
+namespace AircraftMaintenanceOperations.API.Endpoints.Aircraft;
 
-public record ArchiveAircraftRequest(Guid Id);
-
-public record AssignPilotRequest(
-    Guid PilotId, Guid AircraftId
-    );
-
-public record GetAircraftRequest();
-public record GetAircraftByIdRequest(Guid Id);
-
+public record UpdateAircraftRequest(
+    string? currentAirport,
+    double flightHours,
+    DateTime lastMaintenanceDate,
+    DateTime nextMaintenanceDate);
+public record AssignPilotRequest(Guid PilotId);
 public record CreateAircraftResponse(Guid Id);
-public record GetAircraftResponse(IEnumerable<AircraftDto> Aircraft);
+public record GetAircraftResult(IEnumerable<AircraftDto> Aircraft);
 public record GetAircraftByIdResponse(AircraftDto Aircraft);
-public record ArchiveAircraftCommandResponse(Guid Id);
-public record AssignPilotCommandResponse(Guid Id);
+public record ArchiveAircraftResponse(Guid Id, bool IsArchived);
+
+public record ArchiveAircraftRequest(Guid Id, bool IsArchived);
+
 
 
 public class AircraftEndpoints : ICarterModule
 {
     public void AddRoutes(IEndpointRouteBuilder app)
     {
-        app.MapPost("/api/aircraft", async(CreateAircraftRequest request, ISender sender) =>
-        {
-            var command = request.Adapt<CreateAircraftCommand>();
-            var result = await sender.Send(command);
-            var response = result.Adapt<CreateAircraftResponse>();
+        var group = app.MapGroup("/api/aircraft").WithTags("Aircraft");
 
-            return Results.Created($"/api/aircraft/{response.Id}", response);
+        group.MapPost("/", async(CreateAircraftCommand command, ISender sender) =>
+        {
+            var result = await sender.Send(command);
+
+            return Results.Created($"/{result.AircraftId}", new CreateAircraftResponse(result.AircraftId));
         })
             .WithName("CreateAircraft")
             .Produces<CreateAircraftResponse>(StatusCodes.Status201Created)
@@ -42,22 +35,21 @@ public class AircraftEndpoints : ICarterModule
             .WithSummary("Creates a new aircraft.")
             .WithDescription("Create Aircraft");
 
-        app.MapGet("/api/aircraft", async(GetAircraftRequest request, ISender sender) =>
+        group.MapGet("/", async(ISender sender) =>
         { 
-            var query = request.Adapt<GetAircraftQuery>();
+            var query = new GetAircraftQuery();
             var result = await sender.Send(query);
-            var response = result.Adapt<GetAircraftResponse>();
-            return Results.Ok(response);
+            return Results.Ok(new GetAircraftResult(result.Aircrafts));
         })
             .WithName("GetAircraft")
-            .Produces<GetAircraftResponse>(StatusCodes.Status200OK)
+            .Produces<GetAircraftResult>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Gets a list of aircrafts.")
             .WithDescription("Get Aircrafts");
 
-        app.MapGet("/api/aircraft/{id:guid}", async (GetAircraftByIdRequest request, ISender sender) =>
+        group.MapGet("/{id:guid}", async (Guid id, ISender sender) =>
         {
-            var query = request.Adapt<GetAircraftByIdQuery>();
+            var query = new GetAircraftByIdQuery(id);
             var result = await sender.Send(query);
             var response = result.Adapt<GetAircraftByIdResponse>();
             return Results.Ok(response);
@@ -68,28 +60,43 @@ public class AircraftEndpoints : ICarterModule
             .WithSummary("Gets aircraft by Id.")
             .WithDescription("Get aircraft by Id.");
 
-        app.MapPatch("/api/aircraft/{id:guid}/archive", async (ArchiveAircraftRequest request, ISender sender) =>
+        group.MapPatch("/{id:guid}", async(Guid id, UpdateAircraftRequest request, ISender sender) =>
         {
-            var command = request.Adapt<ArchiveAircraftCommand>();
+            var command = new UpdateAircraftCommand(
+                id,
+                request.currentAirport,
+                request.flightHours,
+                request.lastMaintenanceDate,
+                request.nextMaintenanceDate);
+
+            return Results.Ok(await sender.Send(command));
+        })
+            .WithName("UpdateAircraft")
+            .Produces<UpdateAircraftResult>(StatusCodes.Status200OK)
+            .ProducesProblem(StatusCodes.Status400BadRequest)
+            .WithSummary("Updated Aircraft.")
+            .WithDescription("Updated Aircraft.");
+
+        group.MapPatch("/{id:guid}/archive", async (Guid id, ISender sender) =>
+        {
+            var command = new ArchiveAircraftCommand(id);
             var result = await sender.Send(command);
-            var response = result.Adapt<ArchiveAircraftCommandResponse>();
-            return Results.Ok(response);
+            return Results.Ok(result);
         })
             .WithName("ArchiveAircraft")
-            .Produces<ArchiveAircraftCommandResponse>(StatusCodes.Status200OK)
+            .Produces<ArchiveAircraftResponse>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Archive Aircraft.")
             .WithDescription("Archive Aircraft");
 
-        app.MapPatch("/api/aircraft/{id:guid}/assign-pilot", async (AssignPilotRequest request, ISender sender) =>
+        group.MapPatch("/{id:guid}/assign-pilot", async (Guid id, AssignPilotRequest request, ISender sender) =>
         {
-            var command = request.Adapt<AssignPilotCommand>();
-            var result = await sender.Send(command);
-            var response = result.Adapt<AssignPilotCommandResponse>();
-            return Results.Ok(response);
+            var pilotCommand = new AssignPilotCommand(id,request.PilotId);
+            var assignPilot = await sender.Send(pilotCommand);
+            return Results.Ok(assignPilot);
         })
             .WithName("AssignPilot")
-            .Produces<AssignPilotCommandResponse>(StatusCodes.Status200OK)
+            .Produces<AssignPilotResult>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status400BadRequest)
             .WithSummary("Assign Pilot.")
             .WithDescription("Assign Pilot");

@@ -11,7 +11,7 @@ public class Aircraft : BaseEntity
     public string Model { get; set; } = string.Empty;
     public AircraftStatus Status { get; set; }
     public DateTime LastMaintenanceDate { get; set; }
-    public DateTime NextMaintenanceDate { get; set; }
+    public DateTime? NextMaintenanceDate { get; set; }
     public Guid? CurrentPilotId { get; set; }
 
     public Pilot? CurrentPilot { get; set; } = null!;
@@ -64,14 +64,16 @@ public class Aircraft : BaseEntity
         CurrentPilotId = null;
     }
 
-    public void UpdateFlightHours(double flightHours)
+    public DomainResult UpdateFlightHours(double newFlightHours)
     {
-        if (flightHours < 0)
-        {
-            throw new ArgumentException("Flight hours cannot be negative.");
-        }
-        FlightHours = flightHours;
+        if (newFlightHours < 0) return new(false, "Flight hours cannot be negative.");
+        if (newFlightHours < FlightHours) return new(false, "Flight hours entered is less than the current hours in the system.");
+
+        FlightHours = newFlightHours;
+
+        return new(true);
     }
+  
 
     public static Aircraft Create(
         string tailNumber,
@@ -92,5 +94,14 @@ public class Aircraft : BaseEntity
             Status = AircraftStatus.Grounded,
             FlightHours = 0
         };
+    }
+
+    public void Update(
+        string currentAirport,
+        double CurrentFlightHours,
+        DateTime lastMaintenanceDate,
+        DateTime nextMaintenanceDate)
+    {
+        if(currentAirport == null) return;
     }
 }

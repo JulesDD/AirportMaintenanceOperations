@@ -2,12 +2,9 @@
 
 public class AssignPilotCommandValidator : AbstractValidator<AssignPilotCommand>
 {
-    private readonly IAircraftMaintenanceDbContext _dbContext;
-    public AssignPilotCommandValidator(IAircraftMaintenanceDbContext dbContext)
+    public AssignPilotCommandValidator()
     {
-        _dbContext = dbContext;
-
-        RuleFor(x => x.PilotId).NotNull().WithMessage("Pilot should not be null");
+        RuleFor(x => x.PilotId).NotEmpty().WithMessage("Pilot should not be null");
         RuleFor(x => x.AircraftId).NotEmpty().WithMessage("AircraftId should not be null");
     }
 }

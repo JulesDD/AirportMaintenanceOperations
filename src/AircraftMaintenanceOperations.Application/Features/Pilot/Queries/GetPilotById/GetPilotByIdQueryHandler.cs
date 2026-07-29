@@ -10,6 +10,11 @@ public class GetPilotByIdQueryHandler(IAircraftMaintenanceDbContext dbContext) :
             .FirstOrDefaultAsync(cancellationToken);
 
         return new GetPilotByIdQueryResult(pilots == null ? null : new PilotDto(
+            pilots.EmployeeNumber,
+            pilots.FirstName,
+            pilots.LastName,
+            pilots.Email,
+            pilots.PhoneNumber,
             pilots.Rank,
             pilots.LicenseNumber));
     }

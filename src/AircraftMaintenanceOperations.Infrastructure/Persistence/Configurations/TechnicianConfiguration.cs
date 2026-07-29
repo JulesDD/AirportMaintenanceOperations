@@ -4,6 +4,8 @@ public class TechnicianConfiguration : IEntityTypeConfiguration<Technician>
 {
     public void Configure(EntityTypeBuilder<Technician> builder)
     {
-        builder.HasKey(x => x.Id);
+        builder.Property(x => x.CertificationLevel);
+
+        builder.Property(x => x.YearsOfExperience);
     }
 }

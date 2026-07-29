@@ -1,7 +1,11 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Pilot.Commands.UpdatePilot;
 
 public record UpdatePilotCommand(
-    Guid PilotId,
-    string Rank,
-    string LicenseNumber) : ICommand<UpdatePilotCommandResult>;
-public record UpdatePilotCommandResult(bool IsSuccess);
+    Guid Id,
+    string? FirstName,
+    string? LastName,
+    string? Email,
+    string? PhoneNumber,
+    string? Rank,
+    string? LicenseNumber) : ICommand<UpdatePilotResult>;
+public record UpdatePilotResult(bool IsSuccess);

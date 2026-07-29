@@ -6,6 +6,11 @@ public class CreatePilotCommandHandler(IAircraftMaintenanceDbContext dbContext) 
     {
         var pilot = Domain.Entities.Pilot.Create
         (
+            command.EmployeeNumber,
+            command.FirstName,
+            command.LastName,
+            command.Email,
+            command.PhoneNumber,
             command.Rank,
             command.LicenseNumber
         );
