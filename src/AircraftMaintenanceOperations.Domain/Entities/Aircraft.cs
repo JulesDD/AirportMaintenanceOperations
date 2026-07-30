@@ -102,6 +102,8 @@ public class Aircraft : BaseEntity
         DateTime lastMaintenanceDate,
         DateTime nextMaintenanceDate)
     {
-        if(currentAirport == null) return;
+        if(currentAirport is not null) CurrentAirport = currentAirport;
+        if(lastMaintenanceDate == DateTime.MinValue) return;
+        if(nextMaintenanceDate == DateTime.MinValue || nextMaintenanceDate > DateTime.MaxValue) return;
     }
 }

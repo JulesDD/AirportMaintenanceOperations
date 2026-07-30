@@ -12,7 +12,7 @@ public class MaintenanceRequestConfiguration : IEntityTypeConfiguration<Maintena
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(mr => mr.AircraftId);
-        builder.HasIndex(mr => mr.ReportedByUserId);
+        builder.HasIndex(mr => mr.RequestedBy);
 
         builder.Property(mr => mr.Description).IsRequired().HasMaxLength(1000);
     }

@@ -1,0 +1,4 @@
+﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceRequestById;
+
+public record GetMaintenanceQueryById(Guid MaintenanceRequestId) : IQuery<GetMaintenanceQueryByIdResult>;
+public record GetMaintenanceQueryByIdResult(MaintenanceRequestDto? MaintenanceRequest);

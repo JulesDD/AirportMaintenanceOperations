@@ -3,8 +3,9 @@
 public enum MaintenanceRequestStatus
 {
     Open,
-    Assigned,
     InProgress,
+    AwaitingParts,
     Completed,
-    Closed
+    Closed,
+    Cancelled
 }

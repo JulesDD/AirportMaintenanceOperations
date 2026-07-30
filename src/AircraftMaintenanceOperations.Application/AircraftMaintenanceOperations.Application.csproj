@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="Features\Aircraft\Mappings\" />
-    <Folder Include="Features\MaintenanceRequests\" />
     <Folder Include="Features\Inventory\" />
     <Folder Include="Features\Authentication\" />
     <Folder Include="Features\WorkOrders\" />
