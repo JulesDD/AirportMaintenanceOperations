@@ -1,107 +1,261 @@
-# Aircraft Maintenance Operations Platform
+# ✈️ Airport Maintenance Operations API
 
-An enterprise-style Aircraft Maintenance Operations Platform built with **ASP.NET Core**, **Clean Architecture**, **CQRS**, and **Domain-Driven Design** principles.
+A modern **ASP.NET Core (.NET 8)** backend application built using **Clean Architecture**, **CQRS**, and **Domain-Driven Design (DDD)** principles to manage aircraft, pilots, and maintenance operations.
 
-The project focuses on modeling real-world aviation maintenance workflows rather than simple CRUD operations.
+This project is being developed incrementally using agile sprints to simulate real-world enterprise software development practices.
 
 ---
 
-## Technology Stack
+## 🚀 Project Status
 
-### Backend
+| Module | Status |
+|---------|:------:|
+| Pilot Management | ✅ Complete |
+| Aircraft Management | ✅ Complete |
+| Maintenance Requests | 🚧 In Progress |
+| Maintenance Scheduling | 📅 Planned |
+| Authentication & Authorization | 📅 Planned |
+| Unit Testing | 📅 Planned |
+| Docker Deployment | 📅 Planned |
 
-- ASP.NET Core Web API (.NET 8)
+---
+
+# 📚 Features
+
+## 👨‍✈️ Pilot Management
+
+- ✅ Create Pilot
+- ✅ Retrieve All Pilots
+- ✅ Retrieve Pilot by ID
+- ✅ Update Pilot
+- ✅ Archive Pilot
+
+### Business Rules
+
+- Only active pilots may be assigned to an aircraft.
+- Archived pilots cannot be assigned.
+
+---
+
+## ✈️ Aircraft Management
+
+- ✅ Create Aircraft
+- ✅ Retrieve All Aircraft
+- ✅ Retrieve Aircraft by ID
+- ✅ Update Aircraft
+- ✅ Archive Aircraft
+- ✅ Assign Pilot
+
+### Business Rules
+
+- Aircraft may only have one assigned pilot.
+- Archived aircraft cannot receive pilot assignments.
+- Out-of-service aircraft cannot receive pilot assignments.
+- Flight hours cannot decrease.
+- Flight hours cannot be negative.
+- New aircraft begin with:
+  - Grounded status
+  - Zero flight hours
+
+---
+
+# 🏗 Architecture
+
+The solution follows **Clean Architecture** principles.
+
+```
+AirportMaintenanceOperations
+│
+├── API
+│   ├── Carter Minimal APIs
+│   ├── Dependency Injection
+│   └── Swagger
+│
+├── Application
+│   ├── Commands
+│   ├── Queries
+│   ├── Handlers
+│   ├── Validators
+│   └── DTOs
+│
+├── Domain
+│   ├── Entities
+│   ├── Enums
+│   ├── Value Objects
+│   ├── Domain Results
+│   └── Business Rules
+│
+└── Infrastructure
+    ├── Entity Framework Core
+    ├── SQL Server
+    └── Persistence
+```
+
+---
+
+# 🛠 Technologies
+
+- ASP.NET Core (.NET 8)
 - C#
 - Entity Framework Core
 - SQL Server
 - MediatR
+- Carter
 - FluentValidation
+- Mapster
+- Swagger / OpenAPI
+- Minimal APIs
 
-### Architecture
+---
+
+# 🧩 Design Patterns
+
+This project demonstrates several enterprise development patterns:
+
+- Clean Architecture
+- CQRS (Command Query Responsibility Segregation)
+- Domain-Driven Design (DDD)
+- Repository Pattern
+- Dependency Injection
+- Factory Methods
+- Domain Result Pattern
+- Validation Pipeline Behaviour
+
+---
+
+# ⚙️ CQRS
+
+Commands are responsible for modifying application state.
+
+Examples include:
+
+- CreateAircraftCommand
+- UpdateAircraftCommand
+- ArchiveAircraftCommand
+- AssignPilotCommand
+- CreatePilotCommand
+- UpdatePilotCommand
+
+Queries are responsible for retrieving data.
+
+Examples include:
+
+- GetAircraftQuery
+- GetAircraftByIdQuery
+- GetPilotsQuery
+- GetPilotByIdQuery
+
+MediatR coordinates communication between API endpoints and application handlers.
+
+---
+
+# ✅ Validation Strategy
+
+Validation is intentionally split into two layers.
+
+### FluentValidation
+
+Used for:
+
+- Required fields
+- Length validation
+- Date validation
+- Input formatting
+
+### Domain Layer
+
+Responsible for business rules such as:
+
+- Aircraft assignment rules
+- Flight hour validation
+- Operational status changes
+- Aggregate behaviour
+
+This separation keeps business logic inside the domain where it belongs.
+
+---
+
+# 📖 Learning Objectives
+
+This project has strengthened my understanding of:
 
 - Clean Architecture
 - CQRS
 - Domain-Driven Design
-- Vertical Slice Architecture
+- MediatR
+- Entity Framework Core
+- RESTful API Design
+- Minimal APIs
+- FluentValidation
+- Separation of Concerns
 
 ---
 
-## Features
+# 📅 Sprint Progress
 
-### ✅ Completed
+## ✅ Sprint 5 Complete
 
-- Create Aircraft
-- Get Aircraft
-- Get Aircraft by ID
-- Archive Aircraft
-- Aircraft Factory (`Aircraft.Create()`)
-- Domain Behaviors
-  - Archive
-  - Ground
-  - Return to Service
-  - Assign Pilot
-  - Unassign Pilot
-- Business Rule Enforcement
-- Domain Result Pattern
+Completed during this sprint:
 
-### 🚧 In Progress
+- Pilot Management module
+- Aircraft Management module
+- Domain business rules
+- CQRS implementation
+- FluentValidation
+- Carter Minimal APIs
+- Entity Framework Core persistence
+- Swagger endpoint testing
+- Flight hour business validation
+- Pilot assignment workflow
 
-- Assign Pilot Vertical Slice
-- Unit Testing
-- API Endpoints
+---
 
-### 📋 Planned
+# 🚀 Upcoming Work
+
+Planned features include:
 
 - Maintenance Requests
-- Work Orders
-- Technician Assignment
-- Return to Service Workflow
-- Authentication & Authorization
-- Reporting Dashboard
+- Maintenance Scheduling
+- Maintenance History
+- JWT Authentication
+- Role-Based Authorization
+- Unit Testing
+- Integration Testing
+- Docker Improvements
+- Azure Deployment
+- CI/CD Pipeline
 
 ---
 
-## Business Rules
+# 📷 API Documentation
 
-- Aircraft are never deleted; they are archived.
-- New aircraft are created in the **Grounded** state.
-- Flight hours start at **0**.
-- Archived aircraft cannot receive a pilot.
-- Out-of-service aircraft cannot receive a pilot.
-- An aircraft can only have one assigned pilot at a time.
+Swagger is included for interactive API testing.
 
-Business rules are enforced within the domain model rather than application handlers.
+Current endpoints include:
 
----
+### Pilot
 
-## Current Sprint
+- POST /api/pilot
+- GET /api/pilot
+- GET /api/pilot/{id}
+- PATCH /api/pilot/{id}
+- PATCH /api/pilot/{id}/archive
 
-**Sprint 5 – Pilot Assignment**
+### Aircraft
 
-Current work includes:
-
-- DomainResult implementation
-- Aircraft aggregate improvements
-- Assign Pilot command and handler
-- Business rule validation
-
----
-
-## Project Goals
-
-This project is designed to demonstrate:
-
-- Enterprise application architecture
-- Clean code principles
-- Rich domain modeling
-- REST API design
-- CQRS with MediatR
-- Business-driven software development
+- POST /api/aircraft
+- GET /api/aircraft
+- GET /api/aircraft/{id}
+- PATCH /api/aircraft/{id}
+- PATCH /api/aircraft/{id}/archive
+- PATCH /api/aircraft/{id}/assign-pilot
 
 ---
 
-## Project Status
+# 👨‍💻 Author
 
-🚀 Active Development
+**Jules Douglas**
 
-Current Progress: **Sprint 5 (Approximately 50% MVP Complete)**
+Backend Software Developer
+
+This repository documents my journey developing enterprise-style backend applications while applying Clean Architecture, CQRS, and Domain-Driven Design principles through sprint-based development.
