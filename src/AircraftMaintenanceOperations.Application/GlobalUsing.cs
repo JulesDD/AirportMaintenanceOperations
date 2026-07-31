@@ -1,4 +1,5 @@
 ﻿global using AircraftMaintenanceOperations.Application.Abstractions.Messaging;
+global using AircraftMaintenanceOperations.Application.Common.Rules;
 global using AircraftMaintenanceOperations.Application.Features.DTOs;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CreatedMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Interfaces;

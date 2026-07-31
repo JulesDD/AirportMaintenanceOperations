@@ -34,7 +34,7 @@ public class MaintenanceRequest : BaseEntity
             MaintenanceRequestStatus = MaintenanceRequestStatus.Open,
             RequestedBy = requestedBy,
             RequestedDate = DateTime.Today,
-            DueDate = DateTime.Today,
+            DueDate = dueDate,
             CreatedDate = DateTime.Now,
             LastModified = DateTime.Now
         };
@@ -57,21 +57,25 @@ public class MaintenanceRequest : BaseEntity
         if (!(requestedDate < DateTime.UtcNow)) RequestedDate = requestedDate; else RequestedDate = DateTime.UtcNow;
         if (dueDate < DateTime.UtcNow) DueDate = DateTime.UtcNow;
         if (!(closedDate < DateTime.UtcNow)) ClosedDate = closedDate;
+        LastModified = DateTime.UtcNow;
     }
 
     public void MediumPriorty()
     {
         MaintenancePriority = MaintenancePriority.Medium;
+        LastModified = DateTime.UtcNow;
     }
 
     public void HighPriorty()
     {
         MaintenancePriority = MaintenancePriority.High;
+        LastModified = DateTime.UtcNow;
     }
 
     public void CriticalPriorty()
     {
         MaintenancePriority = MaintenancePriority.Critical;
+        LastModified = DateTime.UtcNow;
     }
 
     public void InProgressRequestStatus()
@@ -82,20 +86,25 @@ public class MaintenanceRequest : BaseEntity
     public void AwaitingParts()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.AwaitingParts;
+        LastModified = DateTime.UtcNow;
     }
 
     public void Complete()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.Completed;
+        LastModified = DateTime.UtcNow;
     }
 
     public void Closed()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.Closed;
+        ClosedDate = DateTime.UtcNow;
+        LastModified = DateTime.UtcNow;
     }
 
     public void Cancelled()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.Cancelled;
+        LastModified = DateTime.UtcNow;
     }
 }
