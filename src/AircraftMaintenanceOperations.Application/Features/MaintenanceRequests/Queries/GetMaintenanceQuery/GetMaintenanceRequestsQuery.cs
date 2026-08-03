@@ -1,4 +1,8 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQuery;
 
-public record GetMaintenanceQuery : IQuery<GetMaintenanceResult>;
+public record GetMaintenanceRequestsQuery(
+    string? RequestNumber,
+    string? RequestedBy,
+    MaintenanceRequestStatus? Status,
+    MaintenancePriority? Priority) : IQuery<GetMaintenanceResult>;
 public record GetMaintenanceResult(IEnumerable<MaintenanceRequestDto> MaintenanceRequests);
