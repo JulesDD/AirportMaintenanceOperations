@@ -12,7 +12,10 @@ This project is being developed incrementally using agile sprints to simulate re
 |---------|:------:|
 | Pilot Management | ✅ Complete |
 | Aircraft Management | ✅ Complete |
-| Maintenance Requests | 🚧 In Progress |
+| Maintenance Requests | ✅ Complete  |
+| Work Orders | 🚧 In Progress |
+| Technician Management | 📅 Planned |
+| Inventory Management | 📅 Planned |
 | Maintenance Scheduling | 📅 Planned |
 | Authentication & Authorization | 📅 Planned |
 | Unit Testing | 📅 Planned |
