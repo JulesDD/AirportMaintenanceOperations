@@ -2,13 +2,9 @@
 
 public class CreateAircraftCommandValidator : AbstractValidator<CreateAircraftCommand>
 {
-    private readonly TailNumberRules _tailNumberRules;
-    public CreateAircraftCommandValidator(TailNumberRules tailNumberRules)
+    public CreateAircraftCommandValidator()
     {
-        _tailNumberRules = tailNumberRules;
-
         RuleFor(x => x.TailNumber).NotEmpty().WithMessage("Tail number is required.");
-        RuleFor(x => x.TailNumber).MustAsync(_tailNumberRules.BeUniqueTailNumber).WithMessage("Tail number must be unique.");
         RuleFor(x => x.Manufacturer).NotEmpty().WithMessage("Manufacturer is required.");
         RuleFor(x => x.Model).NotEmpty().WithMessage("Model is required.");
         RuleFor(x => x.SerialNumber).NotEmpty().WithMessage("Serial number is required.");

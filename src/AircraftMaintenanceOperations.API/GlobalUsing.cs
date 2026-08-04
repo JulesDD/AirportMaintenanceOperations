@@ -6,11 +6,17 @@ global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraftById;
 global using AircraftMaintenanceOperations.Application.Features.AssignPilot.Command;
 global using AircraftMaintenanceOperations.Application.Features.DTOs;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CloseMaintenanceRequest;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CreatedMaintenanceRequest;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.DeleteMaintenanceRequest;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.UpdatedMaintenanceRequest;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQuery;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Commands.CreatePilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Commands.UpdatePilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.ArchivePilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.GetPilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.GetPilotById;
+global using AircraftMaintenanceOperations.Domain.Enums;
 global using AircraftMaintenanceOperations.Infrastructure.Extensions;
 global using Carter;
 global using Mapster;

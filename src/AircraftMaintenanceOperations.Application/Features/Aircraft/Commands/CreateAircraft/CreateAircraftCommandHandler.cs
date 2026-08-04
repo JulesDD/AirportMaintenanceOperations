@@ -4,6 +4,8 @@ public class CreateAircraftCommandHandler(IAircraftMaintenanceDbContext dbContex
 {
     public async Task<CreateAircraftCommandResult> Handle(CreateAircraftCommand command, CancellationToken cancellationToken)
     {
+        if (await dbContext.Aircrafts.AnyAsync(x => x.TailNumber == command.TailNumber, cancellationToken)) throw new InvalidOperationException("An aircraft with the same tail number already exists.");
+
         var aircraft = Domain.Entities.Aircraft.Create
         (
             command.TailNumber,
@@ -13,6 +15,7 @@ public class CreateAircraftCommandHandler(IAircraftMaintenanceDbContext dbContex
             command.YearOfManufacture,
             command.CurrentLocation
         );
+
 
         dbContext.Aircrafts.Add(aircraft);
         await dbContext.SaveChangesAsync(cancellationToken);

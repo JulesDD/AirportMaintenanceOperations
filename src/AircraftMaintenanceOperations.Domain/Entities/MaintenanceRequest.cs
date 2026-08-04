@@ -33,10 +33,10 @@ public class MaintenanceRequest : BaseEntity
             MaintenancePriority = MaintenancePriority.Low,
             MaintenanceRequestStatus = MaintenanceRequestStatus.Open,
             RequestedBy = requestedBy,
-            RequestedDate = DateTime.Today,
+            RequestedDate = DateTime.UtcNow,
             DueDate = dueDate,
-            CreatedDate = DateTime.Now,
-            LastModified = DateTime.Now
+            CreatedDate = DateTime.UtcNow,
+            LastModified = DateTime.UtcNow
         };
     }
 

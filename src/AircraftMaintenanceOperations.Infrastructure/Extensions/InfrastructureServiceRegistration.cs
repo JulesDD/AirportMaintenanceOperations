@@ -2,7 +2,7 @@
 
 namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
 
-public static class DependencyInjection
+public static class InfrastructureServiceRegistration
 {
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
     {

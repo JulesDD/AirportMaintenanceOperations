@@ -9,11 +9,51 @@ public class MaintenanceRequestConfiguration : IEntityTypeConfiguration<Maintena
         builder.HasOne<WorkOrder>()
             .WithOne(wo => wo.MaintenanceRequest)
             .HasForeignKey<WorkOrder>(wo => wo.MaintenanceRequestId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(mr => mr.AircraftId);
+
+        builder.Property(mr => mr.RequestedBy)
+            .IsRequired()
+            .HasMaxLength(50);
         builder.HasIndex(mr => mr.RequestedBy);
 
         builder.Property(mr => mr.Description).IsRequired().HasMaxLength(1000);
+
+        builder.Property(mr => mr.RequestNumber)
+            .IsRequired()
+            .HasMaxLength(20);
+        builder.HasIndex(mr => mr.RequestNumber).IsUnique();
+
+        builder.Property(mr => mr.Title)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        builder.Property(mr => mr.MaintenancePriority)
+            .HasConversion<string>();
+
+        builder.Property(mr => mr.MaintenanceRequestStatus)
+            .HasConversion<string>();
+
+        builder.Property(mr => mr.DueDate)
+            .IsRequired();
+
+        builder.Property(mr => mr.CreatedDate)
+            .IsRequired();
+
+        builder.Property(mr => mr.RequestedDate)
+            .IsRequired();
+
+        builder.Property(mr => mr.LastModified)
+            .IsRequired();
+
+        builder.HasOne(mr => mr.Aircraft)
+            .WithMany(a => a.MaintenanceRequests)
+            .HasForeignKey(mr => mr.AircraftId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder.HasIndex(mr => mr.MaintenanceRequestStatus);
+
+        builder.HasIndex(mr => mr.MaintenancePriority);
     }
 }

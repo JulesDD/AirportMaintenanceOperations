@@ -1,6 +1,4 @@
-﻿using AircraftMaintenanceOperations.Application.Features.Aircraft.Commands.UpdateAircraft;
-
-namespace AircraftMaintenanceOperations.API.Endpoints.Aircraft;
+﻿namespace AircraftMaintenanceOperations.API.Endpoints.Aircraft;
 
 public record UpdateAircraftRequest(
     string? currentAirport,

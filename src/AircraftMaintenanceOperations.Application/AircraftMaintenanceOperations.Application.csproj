@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Common\" />
     <Folder Include="Features\Aircraft\Mappings\" />
     <Folder Include="Features\Inventory\" />
     <Folder Include="Features\Authentication\" />

@@ -2,17 +2,19 @@
 
 namespace AircraftMaintenanceOperations.Application.Extensions;
 
-public static class DependencyInjection
+public static class ApplicationServiceRegistration
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddTransient<RequestNumberRules>();
+        services.AddTransient<TailNumberRules>();
+        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+
         services.AddMediatR(cfg =>
         {
             cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
             cfg.AddOpenBehavior(typeof(ValidationBehaviours<,>));
         });
-
-        services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
         return services;
     }

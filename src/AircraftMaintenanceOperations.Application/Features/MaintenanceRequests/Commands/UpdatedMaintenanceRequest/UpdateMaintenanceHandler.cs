@@ -4,6 +4,7 @@ public class UpdateMaintenanceHandler(IAircraftMaintenanceDbContext dbContext) :
 {
     public async Task<UpdateMaintenanceResult> Handle(UpdateMaintenanceCommand command, CancellationToken cancellationToken)
     {
+        if (await dbContext.MaintenanceRequests.AnyAsync(x => x.RequestNumber == command.RequestNumber && x.Id != command.Id, cancellationToken)) throw new InvalidOperationException("A request with the same number already exists.");
         var mRequest = await dbContext.MaintenanceRequests.FindAsync([command.Id], cancellationToken: cancellationToken);
         if (mRequest is null) return new UpdateMaintenanceResult(false);
 
