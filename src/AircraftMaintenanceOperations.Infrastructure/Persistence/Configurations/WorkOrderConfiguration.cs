@@ -6,7 +6,7 @@ public class WorkOrderConfiguration : IEntityTypeConfiguration<WorkOrder>
     {
         builder.HasOne(wo => wo.Technician)
             .WithMany()
-            .HasForeignKey(wo => wo.TechnicianId)
+            .HasForeignKey(wo => wo.AssignedTechnicianId)
             .OnDelete(DeleteBehavior.Restrict);
 
         builder.HasMany(wo => wo.InventoryUsages)
@@ -15,9 +15,9 @@ public class WorkOrderConfiguration : IEntityTypeConfiguration<WorkOrder>
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(wo => wo.MaintenanceRequestId);
-        builder.HasIndex(wo => wo.TechnicianId);
+        builder.HasIndex(wo => wo.AssignedTechnicianId);
 
-        builder.Property(wo => wo.Status).HasConversion<string>().IsRequired();
+        builder.Property(wo => wo.WorkOrderStatus).HasConversion<string>().IsRequired();
         builder.Property(wo => wo.EstimatedCompletionDate).IsRequired();
         builder.Property(wo => wo.EstimatedCompletionPercent).HasPrecision(5, 2).IsRequired();
         builder.Property(wo => wo.LaborNotes).HasConversion<string>().IsRequired().HasMaxLength(1000);

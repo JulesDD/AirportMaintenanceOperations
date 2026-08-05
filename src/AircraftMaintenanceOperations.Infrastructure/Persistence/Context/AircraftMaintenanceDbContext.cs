@@ -16,6 +16,8 @@ public class AircraftMaintenanceDbContext : DbContext, IAircraftMaintenanceDbCon
     public DbSet<InventoryPart> InventoryParts => Set<InventoryPart>();
     public DbSet<InventoryUsage> InventoryUsages => Set<InventoryUsage>();
     public DbSet<User> Users => Set<User>();
+    public DbSet<WorkOrderCounter> WorkOrderCounters => Set<WorkOrderCounter>();
+    public DbSet<MaintenanceRequestCounter> MaintenanceRequestCounters => Set<MaintenanceRequestCounter>();
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -2,11 +2,15 @@
 
 public class WorkOrder : BaseEntity
 {
+    public string WorkOrderNumber { get; set; } = string.Empty;
+    public string MaintenanceNumber { get; set; } = string.Empty;
     public Guid MaintenanceRequestId { get; set; }
     public MaintenanceRequest? MaintenanceRequest { get; set; } = null!;
-    public Guid TechnicianId { get; set; }
+    public Guid AircraftId { get; set; }
+    public Guid AssignedTechnicianId { get; set; }
     public Technician? Technician { get; set; } = null!;
-    public WorkOrderStatus Status { get; set; }
+    public MaintenancePriority WorkOrderPriority { get; set; }
+    public WorkOrderStatus WorkOrderStatus { get; set; }
     public DateTime EstimatedCompletionDate { get; set; }
     public DateTime? ActualCompletionDate { get; set; }
     public decimal EstimatedCompletionPercent { get; set; }
@@ -18,17 +22,17 @@ public class WorkOrder : BaseEntity
 
     public void AssignTechnician(Guid technicianId)
     {
-        TechnicianId = technicianId;
+        AssignedTechnicianId = technicianId;
     }
 
     public void MarkAsInProgress()
     {
-        Status = WorkOrderStatus.InProgress;
+        WorkOrderStatus = WorkOrderStatus.InProgress;
     }
 
     public void MarkAsCompleted(string laborNotes, decimal laborHours)
     {
-        Status = WorkOrderStatus.Completed;
+        WorkOrderStatus = WorkOrderStatus.Completed;
         ActualCompletionDate = DateTime.UtcNow;
         ActualCompletionPercent = 100;
         LaborNotes = laborNotes;
