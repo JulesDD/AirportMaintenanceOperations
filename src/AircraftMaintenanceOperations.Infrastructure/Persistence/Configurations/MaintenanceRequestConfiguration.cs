@@ -20,11 +20,6 @@ public class MaintenanceRequestConfiguration : IEntityTypeConfiguration<Maintena
 
         builder.Property(mr => mr.Description).IsRequired().HasMaxLength(1000);
 
-        builder.Property(mr => mr.RequestNumber)
-            .IsRequired()
-            .HasMaxLength(20);
-        builder.HasIndex(mr => mr.RequestNumber).IsUnique();
-
         builder.Property(mr => mr.Title)
             .IsRequired()
             .HasMaxLength(100);
@@ -42,9 +37,6 @@ public class MaintenanceRequestConfiguration : IEntityTypeConfiguration<Maintena
             .IsRequired();
 
         builder.Property(mr => mr.RequestedDate)
-            .IsRequired();
-
-        builder.Property(mr => mr.LastModified)
             .IsRequired();
 
         builder.HasOne(mr => mr.Aircraft)

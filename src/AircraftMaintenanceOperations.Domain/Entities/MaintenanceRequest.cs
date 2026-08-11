@@ -2,18 +2,16 @@
 
 public class MaintenanceRequest : BaseEntity
 {
-    public string RequestNumber { get; set; }
-    public Guid AircraftId { get; set; }
-    public string Title { get; set; }
+    public string RequestNumber { get; private set; }
+    public Guid AircraftId { get; private set; }
+    public string Title { get; private set; }
     public string Description { get; set; } = string.Empty;
     public MaintenancePriority MaintenancePriority { get; set; }
-    public MaintenanceRequestStatus MaintenanceRequestStatus { get; set; }
-    public Aircraft Aircraft { get; set; }
+    public MaintenanceRequestStatus MaintenanceRequestStatus { get; private set; }
+    public Aircraft Aircraft { get; private set; }
     public string RequestedBy { get; set; }
     public DateTime RequestedDate { get; set; }
     public DateTime DueDate { get; set; }
-    public DateTime CreatedDate { get; set; }
-    public DateTime LastModified { get; set; }
     public DateTime ClosedDate { get; set; }
 
     public static MaintenanceRequest Create(
@@ -24,6 +22,7 @@ public class MaintenanceRequest : BaseEntity
         string requestedBy,
         DateTime dueDate)
     {
+        if (dueDate < DateTime.UtcNow) throw new InvalidOperationException("Due date cannot be in the past.");
         return new MaintenanceRequest
         {
             RequestNumber = requestNumber,
@@ -34,77 +33,67 @@ public class MaintenanceRequest : BaseEntity
             MaintenanceRequestStatus = MaintenanceRequestStatus.Open,
             RequestedBy = requestedBy,
             RequestedDate = DateTime.UtcNow,
-            DueDate = dueDate,
-            CreatedDate = DateTime.UtcNow,
-            LastModified = DateTime.UtcNow
+            DueDate = dueDate
         };
     }
 
-    public void Update(
-        string requestNumber,
-        string title,
-        Guid aircraftId,
-        string description,
-        DateTime requestedDate,
-        DateTime dueDate,
-        DateTime closedDate
-        )
-    {
-        if ( requestNumber == null ) return; requestNumber = requestNumber.Trim();
-        if (title is not null) Title = title;
-        if (aircraftId != Aircraft.Id) return;
-        if (description is not null) Description = description;
-        if (!(requestedDate < DateTime.UtcNow)) RequestedDate = requestedDate; else RequestedDate = DateTime.UtcNow;
-        if (dueDate < DateTime.UtcNow) DueDate = DateTime.UtcNow;
-        if (!(closedDate < DateTime.UtcNow)) ClosedDate = closedDate;
-        LastModified = DateTime.UtcNow;
-    }
+    //public void Update(
+    //    string requestNumber,
+    //    string title,
+    //    Guid aircraftId,
+    //    string description,
+    //    DateTime requestedDate,
+    //    DateTime dueDate,
+    //    DateTime closedDate
+    //    )
+    //{
+    //    if ( requestNumber != null ) requestNumber = requestNumber.Trim();
+    //    if (title is not null) Title = title;
+    //    if (description is not null) Description = description;
+    //    if (!(requestedDate < DateTime.UtcNow)) RequestedDate = requestedDate; else RequestedDate = DateTime.UtcNow;
+    //    if (dueDate < DateTime.UtcNow) DueDate = DateTime.UtcNow;
+    //    if (!(closedDate < DateTime.UtcNow)) ClosedDate = closedDate;
+    //}
 
-    public void MediumPriorty()
+    public void MediumPriority()
     {
         MaintenancePriority = MaintenancePriority.Medium;
-        LastModified = DateTime.UtcNow;
     }
 
-    public void HighPriorty()
+    public void HighPriority()
     {
         MaintenancePriority = MaintenancePriority.High;
-        LastModified = DateTime.UtcNow;
     }
 
-    public void CriticalPriorty()
+    public void CriticalPriority()
     {
         MaintenancePriority = MaintenancePriority.Critical;
-        LastModified = DateTime.UtcNow;
     }
 
     public void InProgressRequestStatus()
     {
+        if (MaintenanceRequestStatus == MaintenanceRequestStatus.Closed) throw new InvalidOperationException("Cannot move closed request to in progress.");
         MaintenanceRequestStatus = MaintenanceRequestStatus.InProgress;
     }
 
     public void AwaitingParts()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.AwaitingParts;
-        LastModified = DateTime.UtcNow;
     }
 
     public void Complete()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.Completed;
-        LastModified = DateTime.UtcNow;
     }
 
     public void Closed()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.Closed;
         ClosedDate = DateTime.UtcNow;
-        LastModified = DateTime.UtcNow;
     }
 
-    public void Cancelled()
+    public void Archive()
     {
-        MaintenanceRequestStatus = MaintenanceRequestStatus.Cancelled;
-        LastModified = DateTime.UtcNow;
+        MaintenanceRequestStatus = MaintenanceRequestStatus.Archived;
     }
 }

@@ -1,6 +1,4 @@
-﻿using AircraftMaintenanceOperations.Domain.Common;
-
-namespace AircraftMaintenanceOperations.Application.Features.AssignPilot.Command;
+﻿namespace AircraftMaintenanceOperations.Application.Features.AssignPilot.Command;
 
 public class AssignPilotHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<AssignPilotCommand, AssignPilotResult>
 {

@@ -1,7 +1,6 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CreatedMaintenanceRequest;
 
 public record CreateMaintenanceCommand(
-    string RequestNumber,
     string Title,
     Guid AircraftId,
     string Description,

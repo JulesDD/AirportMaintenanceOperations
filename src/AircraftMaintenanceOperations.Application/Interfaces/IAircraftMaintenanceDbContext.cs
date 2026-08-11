@@ -10,5 +10,7 @@ public interface IAircraftMaintenanceDbContext
     DbSet<InventoryPart> InventoryParts { get; }
     DbSet<InventoryUsage> InventoryUsages { get; }
     DbSet<User> Users { get; }
+    DbSet<WorkOrderCounter> WorkOrderCounters { get; }
+    DbSet<MaintenanceRequestCounter> MaintenanceRequestCounters { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

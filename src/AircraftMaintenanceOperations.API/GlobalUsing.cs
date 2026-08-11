@@ -11,6 +11,7 @@ global using AircraftMaintenanceOperations.Application.Features.MaintenanceReque
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.DeleteMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.UpdatedMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQuery;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQueryById;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Commands.CreatePilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Commands.UpdatePilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.ArchivePilot;

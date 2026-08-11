@@ -183,9 +183,6 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
                     b.Property<DateTime>("DueDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("LastModified")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("MaintenancePriority")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
@@ -322,10 +319,6 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
                     b.Property<DateTime?>("ActualCompletionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("ActualCompletionPercent")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
-
                     b.Property<Guid>("AircraftId")
                         .HasColumnType("uniqueidentifier");
 
@@ -338,10 +331,6 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
                     b.Property<DateTime>("EstimatedCompletionDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<decimal>("EstimatedCompletionPercent")
-                        .HasPrecision(5, 2)
-                        .HasColumnType("decimal(5,2)");
-
                     b.Property<decimal>("LaborHours")
                         .HasPrecision(8, 2)
                         .HasColumnType("decimal(8,2)");
@@ -350,10 +339,6 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
                         .IsRequired()
                         .HasMaxLength(1000)
                         .HasColumnType("nvarchar(1000)");
-
-                    b.Property<string>("MaintenanceNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<Guid>("MaintenanceRequestId")
                         .HasColumnType("uniqueidentifier");
@@ -403,7 +388,8 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Year")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasDatabaseName("IX_WorkOrderCounter_Year");
 
                     b.ToTable("WorkOrderCounters", (string)null);
                 });
@@ -486,12 +472,6 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
 
             modelBuilder.Entity("AircraftMaintenanceOperations.Domain.Entities.WorkOrder", b =>
                 {
-                    b.HasOne("AircraftMaintenanceOperations.Domain.Entities.Technician", "Technician")
-                        .WithMany()
-                        .HasForeignKey("AssignedTechnicianId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("AircraftMaintenanceOperations.Domain.Entities.MaintenanceRequest", "MaintenanceRequest")
                         .WithOne()
                         .HasForeignKey("AircraftMaintenanceOperations.Domain.Entities.WorkOrder", "MaintenanceRequestId")
@@ -499,8 +479,6 @@ namespace AircraftMaintenanceOperations.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("MaintenanceRequest");
-
-                    b.Navigation("Technician");
                 });
 
             modelBuilder.Entity("AircraftMaintenanceOperations.Domain.Entities.Aircraft", b =>

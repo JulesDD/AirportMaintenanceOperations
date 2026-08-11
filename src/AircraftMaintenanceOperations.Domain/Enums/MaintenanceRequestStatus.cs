@@ -7,5 +7,5 @@ public enum MaintenanceRequestStatus
     AwaitingParts,
     Completed,
     Closed,
-    Cancelled
+    Archived
 }

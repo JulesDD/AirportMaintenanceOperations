@@ -1,13 +1,14 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CreateMaintenanceRequest;
 
-public class CreateMaintenanceHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<CreateMaintenanceCommand, CreatedMaintenanceResult>
+public class CreateMaintenanceHandler(IAircraftMaintenanceDbContext dbContext, INumberGenerator numberGenerator) : ICommandHandler<CreateMaintenanceCommand, CreatedMaintenanceResult>
 {
     public async Task<CreatedMaintenanceResult> Handle(CreateMaintenanceCommand command, CancellationToken cancellationToken)
     {
-        if (await dbContext.MaintenanceRequests.AnyAsync(x => x.RequestNumber == command.RequestNumber, cancellationToken)) throw new InvalidOperationException("A request with the same number already exists.");
+        var requestNumber = await numberGenerator.GenerateMaintenanceRequestNumberAsync();
+
         if (!await dbContext.Aircrafts.AnyAsync(x => x.Id == command.AircraftId, cancellationToken)) throw new InvalidOperationException("The specified aircraft does not exist.");
         var maintenanceRequest = MaintenanceRequest.Create(
-            command.RequestNumber,
+            requestNumber,
             command.Title,
             command.AircraftId,
             command.Description,

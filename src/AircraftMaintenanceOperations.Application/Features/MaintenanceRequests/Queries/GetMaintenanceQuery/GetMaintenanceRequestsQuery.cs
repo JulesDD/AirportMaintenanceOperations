@@ -1,7 +1,6 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQuery;
 
 public record GetMaintenanceRequestsQuery(
-    string? RequestNumber,
     string? RequestedBy,
     MaintenanceRequestStatus? Status,
     MaintenancePriority? Priority) : IQuery<GetMaintenanceResult>;

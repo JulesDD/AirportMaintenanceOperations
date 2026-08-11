@@ -1,0 +1,4 @@
+﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.DeleteMaintenanceRequest;
+
+public record ArchiveMaintenanceCommand(Guid MaintenanceRequestId) : ICommand<ArchiveMaintenanceResult>;
+public record ArchiveMaintenanceResult(bool IsArchived);

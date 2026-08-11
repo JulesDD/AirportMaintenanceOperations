@@ -1,6 +1,4 @@
-﻿using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQueryById;
-
-namespace AircraftMaintenanceOperations.API.Endpoints.Maintenance;
+﻿namespace AircraftMaintenanceOperations.API.Endpoints.Maintenance;
 
 public record GetMaintenanceParameters(
     string? RequestNumber,
@@ -29,7 +27,6 @@ public class MaintenanceEndpoints : ICarterModule
         group.MapGet("/", async(ISender sender, [AsParameters] GetMaintenanceParameters command) =>
         {
             var result = await sender.Send(new GetMaintenanceRequestsQuery(
-                command.RequestNumber,
                 command.RequestedBy,
                 command.Status,
                 command.Priority));
@@ -71,16 +68,16 @@ public class MaintenanceEndpoints : ICarterModule
             .WithSummary("Updates an existing maintenance record.")
             .WithDescription("Update Maintenance");
 
-        group.MapDelete("/{id:guid}", async(Guid id, ISender sender) =>
+        group.MapPatch("/{id:guid}/archive", async (Guid id, ISender sender) =>
         {
-            var result = await sender.Send(new DeleteMaintenanceCommand(id));
+            var result = await sender.Send(new ArchiveMaintenanceCommand(id));
             return Results.Ok(result);
         })
-            .WithName("DeleteMaintenance")
-            .Produces<DeleteMaintenanceResult>(StatusCodes.Status200OK)
+            .WithName("ArchiveMaintenance")
+            .Produces<ArchiveMaintenanceResult>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .WithSummary("Deletes an existing maintenance record.")
-            .WithDescription("Delete Maintenance");
+            .WithSummary("Archives an existing maintenance record.")
+            .WithDescription("Archive Maintenance");
 
         group.MapPost("/{id:guid}/close", async (Guid id, ISender sender) =>
         {

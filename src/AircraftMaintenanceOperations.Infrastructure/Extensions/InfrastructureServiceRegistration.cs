@@ -1,6 +1,4 @@
-﻿using AircraftMaintenanceOperations.Application.Interfaces;
-
-namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
+﻿namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
 
 public static class InfrastructureServiceRegistration
 {
