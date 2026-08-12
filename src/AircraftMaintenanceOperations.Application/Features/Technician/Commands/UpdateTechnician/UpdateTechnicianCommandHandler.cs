@@ -10,11 +10,10 @@ public class UpdateTechnicianCommandHandler(IAircraftMaintenanceDbContext dbCont
         technician.Update(
             command.FirstName,
             command.LastName,
-            command.PhoneNumber,
             command.Email,
+            command.PhoneNumber,
             command.CertificationLevel,
-            command.YearsOfExperience
-        );
+            command.YearsOfExperience);
         await dbContext.SaveChangesAsync(cancellationToken);
         return new UpdateTechnicianCommandResult(true);
     }

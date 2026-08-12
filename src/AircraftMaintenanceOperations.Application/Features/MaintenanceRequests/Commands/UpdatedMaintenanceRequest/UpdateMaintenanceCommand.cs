@@ -4,10 +4,7 @@ public record UpdateMaintenanceCommand
 (
     Guid Id,
     string Title,
-    Guid AircraftId,
     string Description,
-    DateTime RequestedDate,
-    DateTime DueDate,
-    DateTime ClosedDate) : ICommand<UpdateMaintenanceResult>;
+    DateTime DueDate) : ICommand<UpdateMaintenanceResult>;
 
 public record UpdateMaintenanceResult(bool IsUpdated);

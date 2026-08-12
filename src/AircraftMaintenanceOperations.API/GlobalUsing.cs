@@ -6,9 +6,9 @@ global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraftById;
 global using AircraftMaintenanceOperations.Application.Features.AssignPilot.Command;
 global using AircraftMaintenanceOperations.Application.Features.DTOs;
+global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.ArchiveMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CloseMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CreatedMaintenanceRequest;
-global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.ArchiveMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.UpdatedMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQuery;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQueryById;
@@ -17,6 +17,11 @@ global using AircraftMaintenanceOperations.Application.Features.Pilot.Commands.U
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.ArchivePilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.GetPilot;
 global using AircraftMaintenanceOperations.Application.Features.Pilot.Queries.GetPilotById;
+global using AircraftMaintenanceOperations.Application.Features.Technician.Commands.ArchiveTechnician;
+global using AircraftMaintenanceOperations.Application.Features.Technician.Commands.CreateTechnician;
+global using AircraftMaintenanceOperations.Application.Features.Technician.Commands.UpdateTechnician;
+global using AircraftMaintenanceOperations.Application.Features.Technician.Queries.GetTechnician;
+global using AircraftMaintenanceOperations.Application.Features.Technician.Queries.GetTechnicianById;
 global using AircraftMaintenanceOperations.Domain.Enums;
 global using AircraftMaintenanceOperations.Infrastructure.Extensions;
 global using Carter;

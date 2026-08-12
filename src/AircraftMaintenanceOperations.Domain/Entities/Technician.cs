@@ -37,6 +37,7 @@ public class Technician : User
         CertificationLevel certificationLevel,
         int yearsOfExperience)
     {
+        FirstName = firstName;
         LastName = lastName;
         Email = email;
         PhoneNumber = phoneNumber;

@@ -11,7 +11,7 @@ public class CreateTechnicianCommandHandler(IAircraftMaintenanceDbContext dbCont
             command.LastName,
             command.Email,
             command.PhoneNumber,
-            command.CertificationNumber,
+            command.CertificationLevel,
             command.YearsOfExperience
         );
         
