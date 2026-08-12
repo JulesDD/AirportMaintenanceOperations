@@ -46,8 +46,7 @@ public class Technician : User
 
     public void StartBreak()
     {
-        if (Status == TechnicianStatus.OnBreak)
-            throw new InvalidOperationException("Technician is already on break.");
+        if (Status == TechnicianStatus.OnBreak) throw new InvalidOperationException("Technician is already on break.");
         Status = TechnicianStatus.OnBreak;
     }
 
@@ -98,6 +97,20 @@ public class Technician : User
         if (Status == TechnicianStatus.Suspended)
             throw new InvalidOperationException("Technician is already suspended.");
         Status = TechnicianStatus.Suspended;
+    }
+
+    public void Reinstate()
+    {
+        if (Status != TechnicianStatus.Suspended)
+            throw new InvalidOperationException("Technician is not suspended.");
+        Status = TechnicianStatus.Active;
+    }
+
+    public void Training()
+    {
+        if (Status == TechnicianStatus.Training)
+            throw new InvalidOperationException("Technician is already in training.");
+        Status = TechnicianStatus.Training;
     }
 
     public void Archive()

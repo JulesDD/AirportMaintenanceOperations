@@ -53,7 +53,6 @@ public class MaintenanceEndpoints : ICarterModule
         {
             var updateCommand = new UpdateMaintenanceCommand(
                 id,
-                command.RequestNumber,
                 command.Title,
                 command.AircraftId,
                 command.Description,

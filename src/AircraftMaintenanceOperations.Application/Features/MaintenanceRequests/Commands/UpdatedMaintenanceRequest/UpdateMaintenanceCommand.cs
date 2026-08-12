@@ -3,7 +3,6 @@
 public record UpdateMaintenanceCommand
 (
     Guid Id,
-    string RequestNumber,
     string Title,
     Guid AircraftId,
     string Description,

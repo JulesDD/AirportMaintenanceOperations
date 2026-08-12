@@ -37,23 +37,23 @@ public class MaintenanceRequest : BaseEntity
         };
     }
 
-    //public void Update(
-    //    string requestNumber,
-    //    string title,
-    //    Guid aircraftId,
-    //    string description,
-    //    DateTime requestedDate,
-    //    DateTime dueDate,
-    //    DateTime closedDate
-    //    )
-    //{
-    //    if ( requestNumber != null ) requestNumber = requestNumber.Trim();
-    //    if (title is not null) Title = title;
-    //    if (description is not null) Description = description;
-    //    if (!(requestedDate < DateTime.UtcNow)) RequestedDate = requestedDate; else RequestedDate = DateTime.UtcNow;
-    //    if (dueDate < DateTime.UtcNow) DueDate = DateTime.UtcNow;
-    //    if (!(closedDate < DateTime.UtcNow)) ClosedDate = closedDate;
-    //}
+    public void Update(
+        string requestNumber,
+        string title,
+        Guid aircraftId,
+        string description,
+        DateTime requestedDate,
+        DateTime dueDate,
+        DateTime closedDate
+        )
+    {
+        if (requestNumber != null) requestNumber = requestNumber.Trim();
+        if (title is not null) Title = title;
+        if (description is not null) Description = description;
+        if (!(requestedDate < DateTime.UtcNow)) RequestedDate = requestedDate; else RequestedDate = DateTime.UtcNow;
+        if (dueDate < DateTime.UtcNow) DueDate = DateTime.UtcNow;
+        if (!(closedDate < DateTime.UtcNow)) ClosedDate = closedDate;
+    }
 
     public void MediumPriority()
     {

@@ -29,7 +29,7 @@ public class WorkOrderEndpoints : ICarterModule
         {
             var query = new GetWorkOrderQuery();
             var result = await sender.Send(query);
-            return Results.Ok(new GetWorkOrderQueryResult(result.WorkOrders));
+            return Results.Ok(result);
         })
             .WithName("GetAllWorkOrders")
             .Produces<List<WorkOrderDto>>(StatusCodes.Status200OK)
@@ -41,7 +41,7 @@ public class WorkOrderEndpoints : ICarterModule
         {
             var query = new GetWorkOrderQueryByIdQuery(id);
             var result = await sender.Send(query);
-            return Results.Ok(result);
+            return Results.Ok(result.WorkOrder);
         })
             .WithName("GetWorkOrderById")
             .Produces<WorkOrderDto>(StatusCodes.Status200OK)

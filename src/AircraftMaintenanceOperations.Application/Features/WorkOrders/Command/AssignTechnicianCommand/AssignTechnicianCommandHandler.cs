@@ -11,7 +11,7 @@ public class AssignTechnicianCommandHandler(IAircraftMaintenanceDbContext dbCont
 
         var assignTech = workOrder.AssignTechnician(technician);
 
-        if (!assignTech.IsSuccess) return new AssignTechnicianResult(false);
+        if (!assignTech.IsSuccess) return new AssignTechnicianResult(false, assignTech.ErrorMessage);
         await dbContext.SaveChangesAsync(cancellationToken);
         return new AssignTechnicianResult(true);
 

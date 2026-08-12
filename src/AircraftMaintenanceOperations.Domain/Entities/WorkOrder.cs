@@ -71,9 +71,9 @@ public class WorkOrder : BaseEntity
     public DomainResult AssignTechnician(Technician technician)
     {
         if(WorkOrderStatus == WorkOrderStatus.Archived) return new(false, "Archived work orders cannot be assigned to a technician.");
-        if(technician is null) return new(false, "Invalid technician.");
-        //If tecnician is status is not active, return false. Will need to work on that later. 
-        //if(!technician.IsActive) return new(false, "Only active technicians can be assigned to work orders.");
+        if(technician is null) return new(false, "Invalid technician."); 
+        if(technician.Status != TechnicianStatus.Active) return new(false, "Only active technicians can be assigned to work orders.");
+        if(technician.Status == TechnicianStatus.Active && WorkOrderStatus == WorkOrderStatus.Assigned) return new(false, "Work order is already assigned to a technician."); 
 
         AssignedTechnicianId = technician.Id;
         return new(true);
