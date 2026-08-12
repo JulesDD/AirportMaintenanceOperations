@@ -36,6 +36,7 @@ This project is being developed incrementally using agile sprints to simulate re
 - Mapster
 - Swagger / OpenAPI
 - Minimal APIs
+- Kafka
 
 ---
 
