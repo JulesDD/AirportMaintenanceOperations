@@ -18,6 +18,7 @@ This project is being developed incrementally using agile sprints to simulate re
 | Inventory Management | 🚧 In Progress |
 | Maintenance Scheduling | 📅 Planned |
 | Authentication & Authorization | 📅 Planned |
+| Kafka Messaging | 📅 Planned |
 | Unit Testing | 📅 Planned |
 | Docker Deployment | 📅 Planned |
 
