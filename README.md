@@ -15,7 +15,7 @@ This project is being developed incrementally using agile sprints to simulate re
 | Maintenance Requests | ✅ Complete |
 | Work Orders | ✅ Complete|
 | Technician Management | 🚧 In Progress |
-| Inventory Management | 📅 Planned |
+| Inventory Management | 🚧 In Progress |
 | Maintenance Scheduling | 📅 Planned |
 | Authentication & Authorization | 📅 Planned |
 | Unit Testing | 📅 Planned |
