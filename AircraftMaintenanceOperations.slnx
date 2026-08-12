@@ -10,6 +10,7 @@
     <File Path="READ-ME.md" />
     <File Path="Roadmap.md" />
     <File Path="Sprint7.md" />
+    <File Path="Sprint7Retrospective.md" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/AircraftMaintenanceOperations.Tests/AircraftMaintenanceOperations.Tests.csproj" />

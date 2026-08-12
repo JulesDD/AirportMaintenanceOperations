@@ -39,10 +39,10 @@ public class WorkOrder : BaseEntity
     }
 
     public void UpdateDetails(
-    string title,
-    string description,
-    MaintenancePriority priority,
-    DateTime estimatedCompletionDate)
+       string title,
+       string description,
+       MaintenancePriority priority,
+       DateTime estimatedCompletionDate)
     {
         if (WorkOrderStatus == WorkOrderStatus.Archived) throw new InvalidOperationException("Archived work orders cannot be updated.");
 
@@ -70,58 +70,71 @@ public class WorkOrder : BaseEntity
 
     public DomainResult AssignTechnician(Technician technician)
     {
-        if(WorkOrderStatus == WorkOrderStatus.Archived) return new(false, "Archived work orders cannot be assigned to a technician.");
-        if(technician is null) return new(false, "Invalid technician."); 
-        if(technician.Status != TechnicianStatus.Active) return new(false, "Only active technicians can be assigned to work orders.");
-        if(technician.Status == TechnicianStatus.Active && WorkOrderStatus == WorkOrderStatus.Assigned) return new(false, "Work order is already assigned to a technician."); 
+        if (technician is null) return new(false, "Invalid technician.");
+        if (WorkOrderStatus == WorkOrderStatus.Archived) return new(false, "Archived work orders cannot be assigned to a technician.");
+        if (technician.Status != TechnicianStatus.Active) return new(false, "Only active technicians can be assigned to work orders.");
 
         AssignedTechnicianId = technician.Id;
         return new(true);
     }
 
-    public void OpenWorkOrder(string laborNotes)
+    public DomainResult AssignWorkOrder(string laborNotes)
     {
-        WorkOrderStatus = WorkOrderStatus.Open;
-        LaborNotes = laborNotes;
-    }
-
-    public void AssignWorkOrder(string laborNotes)
-    {
+        if (string.IsNullOrWhiteSpace(laborNotes)) return new(false, "A status note is required.");
+        if (WorkOrderStatus != WorkOrderStatus.Open) return new(false, "Only open work orders can be assigned.");
         WorkOrderStatus = WorkOrderStatus.Assigned;
         LaborNotes = laborNotes;
+        return new(true);
     }
 
-    public void InProgress(string laborNotes)
+    public DomainResult InProgress(string laborNotes)
     {
+        if (string.IsNullOrWhiteSpace(laborNotes)) return new(false, "A status note is required.");
+        if (WorkOrderStatus != WorkOrderStatus.Assigned && WorkOrderStatus != WorkOrderStatus.WaitingForParts) return new(false, "Only assigned or waiting-for-parts work orders can be moved to in progress.");
         WorkOrderStatus = WorkOrderStatus.InProgress;
         LaborNotes = laborNotes;
+        return new(true);
     }
 
-    public void WaitingForParts(string laborNotes)
+    public DomainResult WaitingForParts(string laborNotes)
     {
+        if (string.IsNullOrWhiteSpace(laborNotes)) return new(false, "A status note is required.");
+        if (WorkOrderStatus != WorkOrderStatus.InProgress) return new(false, "Only work orders in progress can be moved to waiting for parts.");
         WorkOrderStatus = WorkOrderStatus.WaitingForParts;
         LaborNotes = laborNotes;
+        return new(true);
     }
 
-    public void Inspection(string laborNotes)
+    public DomainResult Inspection(string laborNotes)
     {
+        if (string.IsNullOrWhiteSpace(laborNotes)) return new(false, "A status note is required.");
+        if (WorkOrderStatus != WorkOrderStatus.InProgress) return new(false, "Only work orders in progress can be moved to inspection.");
         WorkOrderStatus = WorkOrderStatus.Inspection;
         LaborNotes = laborNotes;
+        return new(true);
     }
 
-    public void Completed(string laborNotes, decimal laborHours)
+    public DomainResult Completed(string laborNotes, decimal laborHours)
     {
+        if (string.IsNullOrWhiteSpace(laborNotes)) return new(false, "A status note is required.");
+        if(laborHours <= 0) return new(false, "Labor hours must be greater than zero.");
+        if (WorkOrderStatus != WorkOrderStatus.Inspection) return new(false, "Only work orders in inspection can be completed.");
         WorkOrderStatus = WorkOrderStatus.Completed;
         ActualCompletionDate = DateTime.UtcNow;
         LaborNotes = laborNotes;
         LaborHours = laborHours;
+
+        return new(true);
     }
 
-    public void ArchiveWorkOrder()
+    public DomainResult ArchiveWorkOrder(string laborNotes)
     {
-        if (WorkOrderStatus != WorkOrderStatus.Completed) throw new DomainException("Only completed work orders can be archived.");
+        if (string.IsNullOrWhiteSpace(laborNotes)) return new(false, "A status note is required.");
+        if (WorkOrderStatus != WorkOrderStatus.Completed) return new(false, "Only completed work orders can be archived.");
 
         WorkOrderStatus = WorkOrderStatus.Archived;
+        LaborNotes = laborNotes;
+        return new(true);
     }
 
 }

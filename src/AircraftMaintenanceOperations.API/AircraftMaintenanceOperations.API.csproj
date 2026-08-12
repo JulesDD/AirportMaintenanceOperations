@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <Folder Include="Configuration\" />
+    <Folder Include="Endpoints\Technician\" />
     <Folder Include="Extensions\" />
     <Folder Include="Middleware\" />
     <Folder Include="Authentication\" />

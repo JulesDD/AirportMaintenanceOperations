@@ -1,6 +1,4 @@
-﻿using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.DeleteMaintenanceRequest;
-
-namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CloseMaintenanceRequest;
+﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CloseMaintenanceRequest;
 
 public class CloseMaintenanceCommandHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<CloseMaintenanceCommand, CloseMaintenanceResult>
 {

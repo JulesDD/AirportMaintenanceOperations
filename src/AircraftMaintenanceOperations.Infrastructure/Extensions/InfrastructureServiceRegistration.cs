@@ -1,4 +1,6 @@
-﻿namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
+﻿using AircraftMaintenanceOperations.Infrastructure.Services;
+
+namespace AircraftMaintenanceOperations.Infrastructure.Extensions;
 
 public static class InfrastructureServiceRegistration
 {
@@ -11,6 +13,7 @@ public static class InfrastructureServiceRegistration
         });
 
         services.AddScoped<IAircraftMaintenanceDbContext>(provider => provider.GetRequiredService<AircraftMaintenanceDbContext>());
+        services.AddScoped<INumberGenerator, NumberGeneratorService>();
         // Add repositories
         //services.AddScoped<IAircraftRepository, AircraftRepository>();
         //services.AddScoped<IWorkOrderRepository, WorkOrderRepository>();

@@ -1,6 +1,6 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.Pilot.Queries.ArchivePilot;
 
-internal class ArchivePilotCommandHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<ArchivePilotCommand, ArchivePilotResult>
+public class ArchivePilotCommandHandler(IAircraftMaintenanceDbContext dbContext) : ICommandHandler<ArchivePilotCommand, ArchivePilotResult>
 {
     public async Task<ArchivePilotResult> Handle(ArchivePilotCommand command, CancellationToken cancellationToken)
     {

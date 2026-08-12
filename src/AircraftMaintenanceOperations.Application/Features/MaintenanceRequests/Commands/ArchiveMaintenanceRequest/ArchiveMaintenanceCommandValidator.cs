@@ -1,4 +1,4 @@
-﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.DeleteMaintenanceRequest;
+﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.ArchiveMaintenanceRequest;
 
 public class ArchiveMaintenanceCommandValidator : AbstractValidator<ArchiveMaintenanceCommand>
 {
