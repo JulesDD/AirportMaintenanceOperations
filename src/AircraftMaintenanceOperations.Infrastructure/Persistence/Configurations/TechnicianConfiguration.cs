@@ -4,8 +4,8 @@ public class TechnicianConfiguration : IEntityTypeConfiguration<Technician>
 {
     public void Configure(EntityTypeBuilder<Technician> builder)
     {
-        builder.Property(x => x.CertificationLevel);
+        builder.Property(x => x.CertificationLevel).HasConversion<int>();
 
-        builder.Property(x => x.YearsOfExperience);
+        builder.Property(x => x.YearsOfExperience).HasColumnType("int");
     }
 }

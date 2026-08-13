@@ -24,7 +24,8 @@ public class WorkOrder : BaseEntity
         Guid aircraftId,
         Guid assignedTechnicianId,
         MaintenancePriority workOrderPriority,
-        DateTime estimatedCompletionDate)
+        DateTime estimatedCompletionDate,
+        string laborNotes)
     {
         return new WorkOrder
         {
@@ -34,7 +35,8 @@ public class WorkOrder : BaseEntity
             AssignedTechnicianId = assignedTechnicianId,
             WorkOrderPriority = workOrderPriority,
             WorkOrderStatus = WorkOrderStatus.Open,
-            EstimatedCompletionDate = estimatedCompletionDate
+            EstimatedCompletionDate = estimatedCompletionDate,
+            LaborNotes = laborNotes
         };
     }
 
@@ -72,7 +74,7 @@ public class WorkOrder : BaseEntity
     {
         if (technician is null) return new(false, "Invalid technician.");
         if (WorkOrderStatus == WorkOrderStatus.Archived) return new(false, "Archived work orders cannot be assigned to a technician.");
-        if (technician.Status != TechnicianStatus.Active) return new(false, "Only active technicians can be assigned to work orders.");
+        if (technician.Status != EmploymentStatus.Active) return new(false, "Only active technicians can be assigned to work orders.");
 
         AssignedTechnicianId = technician.Id;
         return new(true);

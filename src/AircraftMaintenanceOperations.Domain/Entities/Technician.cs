@@ -4,7 +4,6 @@ public class Technician : User
 {
     public CertificationLevel CertificationLevel { get; private set; }
     public int YearsOfExperience { get; private set; }
-    public TechnicianStatus Status { get; private set; }
 
     public static Technician Create(
         string employeeNumber,
@@ -25,7 +24,7 @@ public class Technician : User
             Role = Role.Technician,
             CertificationLevel = certificationLevel,
             YearsOfExperience = yearsOfExperience,
-            Status = TechnicianStatus.Active
+            Status = EmploymentStatus.Active
         };
     }
 
@@ -47,77 +46,77 @@ public class Technician : User
 
     public void StartBreak()
     {
-        if (Status == TechnicianStatus.OnBreak) throw new InvalidOperationException("Technician is already on break.");
-        Status = TechnicianStatus.OnBreak;
+        if (Status == EmploymentStatus.OnBreak) throw new InvalidOperationException("Technician is already on break.");
+        Status = EmploymentStatus.OnBreak;
     }
 
     public void EndBreak()
     {
-        if (Status != TechnicianStatus.OnBreak)
+        if (Status != EmploymentStatus.OnBreak)
             throw new InvalidOperationException("Technician is not on break.");
-        Status = TechnicianStatus.Active;
+        Status = EmploymentStatus.Active;
     }
 
     public void StartMedicalLeave()
     {
-        if (Status == TechnicianStatus.MedicalLeave)
+        if (Status == EmploymentStatus.MedicalLeave)
             throw new InvalidOperationException("Technician is already on medical leave.");
-        Status = TechnicianStatus.MedicalLeave;
+        Status = EmploymentStatus.MedicalLeave;
     }
 
     public void EndMedicalLeave()
     {
-        if (Status != TechnicianStatus.MedicalLeave)
+        if (Status != EmploymentStatus.MedicalLeave)
             throw new InvalidOperationException("Technician is not on medical leave.");
-        Status = TechnicianStatus.Active;
+        Status = EmploymentStatus.Active;
     }
 
     public void StartVacation()
     {
-        if (Status == TechnicianStatus.Vacation)
+        if (Status == EmploymentStatus.Vacation)
             throw new InvalidOperationException("Technician is already on vacation.");
-        Status = TechnicianStatus.Vacation;
+        Status = EmploymentStatus.Vacation;
     }
 
     public void EndVacation()
     {
-        if (Status != TechnicianStatus.Vacation)
+        if (Status != EmploymentStatus.Vacation)
             throw new InvalidOperationException("Technician is not on vacation.");
-        Status = TechnicianStatus.Active;
+        Status = EmploymentStatus.Active;
     }
 
     public void Retire()
     {
-        if (Status == TechnicianStatus.Retired)
+        if (Status == EmploymentStatus.Retired)
             throw new InvalidOperationException("Technician is already retired.");
-        Status = TechnicianStatus.Retired;
+        Status = EmploymentStatus.Retired;
     }
 
     public void Suspend()
     {
-        if (Status == TechnicianStatus.Suspended)
+        if (Status == EmploymentStatus.Suspended)
             throw new InvalidOperationException("Technician is already suspended.");
-        Status = TechnicianStatus.Suspended;
+        Status = EmploymentStatus.Suspended;
     }
 
     public void Reinstate()
     {
-        if (Status != TechnicianStatus.Suspended)
+        if (Status != EmploymentStatus.Suspended)
             throw new InvalidOperationException("Technician is not suspended.");
-        Status = TechnicianStatus.Active;
+        Status = EmploymentStatus.Active;
     }
 
     public void Training()
     {
-        if (Status == TechnicianStatus.Training)
+        if (Status == EmploymentStatus.Training)
             throw new InvalidOperationException("Technician is already in training.");
-        Status = TechnicianStatus.Training;
+        Status = EmploymentStatus.Training;
     }
 
     public void Archive()
     {
-        if (Status == TechnicianStatus.Archived)
+        if (Status == EmploymentStatus.Archived)
             throw new InvalidOperationException("Technician is already archived.");
-        Status = TechnicianStatus.Archived;
+        Status = EmploymentStatus.Archived;
     }
 }

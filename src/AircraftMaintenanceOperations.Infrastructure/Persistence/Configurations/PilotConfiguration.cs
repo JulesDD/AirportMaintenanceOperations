@@ -6,14 +6,9 @@ public class PilotConfiguration : IEntityTypeConfiguration<Pilot>
     {
         builder.HasIndex(x => x.LicenseNumber).IsUnique();
 
-        builder.Property(x => x.Status)
-                .HasConversion<string>();
+        builder.Property(x => x.Rank).HasMaxLength(50);
 
-        builder.Property(x => x.Rank)
-               .HasMaxLength(50);
-
-        builder.Property(x => x.LicenseNumber)
-               .HasMaxLength(50);
+        builder.Property(x => x.LicenseNumber).HasMaxLength(50);
 
         builder.HasOne<Aircraft>()
             .WithOne(a => a.CurrentPilot)

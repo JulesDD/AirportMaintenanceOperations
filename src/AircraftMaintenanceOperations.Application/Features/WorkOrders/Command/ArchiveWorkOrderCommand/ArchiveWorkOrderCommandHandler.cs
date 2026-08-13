@@ -7,7 +7,7 @@ public class ArchiveWorkOrderCommandHandler(IAircraftMaintenanceDbContext dbCont
         var workOrder = await dbContext.WorkOrders.FindAsync([command.WorkOrderId], cancellationToken);
         if (workOrder is null) return new ArchiveWorkOrderResult(false);
 
-        workOrder.ArchiveWorkOrder();
+        workOrder.ArchiveWorkOrder(command.LaborNotes);
 
         await dbContext.SaveChangesAsync(cancellationToken);
         return new ArchiveWorkOrderResult(true);

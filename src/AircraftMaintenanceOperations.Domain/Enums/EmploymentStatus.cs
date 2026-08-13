@@ -1,12 +1,13 @@
 ﻿namespace AircraftMaintenanceOperations.Domain.Enums;
 
-public enum PilotStatus
+public enum EmploymentStatus
 {
     Active,
     OnBreak,
     MedicalLeave,
+    Vacation,
     Training,
-    Suspended,
     Retired,
+    Suspended,
     Archived
 }

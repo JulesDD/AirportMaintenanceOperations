@@ -4,7 +4,6 @@ public class Pilot : User
 {
     public string? Rank { get; set; } = string.Empty;
     public string? LicenseNumber { get; set; } = string.Empty;
-    public PilotStatus Status { get; set; }
 
     public static Pilot Create(
         string employeeNumber,
@@ -25,7 +24,7 @@ public class Pilot : User
             Role = Role.Pilot,
             Rank = rank,
             LicenseNumber = licenseNumber,
-            Status = PilotStatus.Active
+            Status = EmploymentStatus.Active
         };
     }
 
@@ -58,41 +57,41 @@ public class Pilot : User
 
     public void StartBreak()
     {
-        Status = PilotStatus.OnBreak;
+        Status = EmploymentStatus.OnBreak;
     }
 
     public void EndBreak()
     {
-        Status = PilotStatus.Active;
+        Status = EmploymentStatus.Active;
     }
 
     public void BeginMedicalLeave()
     {
-        Status = PilotStatus.MedicalLeave;
+        Status = EmploymentStatus.MedicalLeave;
     }
 
     public void ReturnToDuty()
     {
-        Status = PilotStatus.Active;
+        Status = EmploymentStatus.Active;
     }
 
     public void StartTraining()
     {
-        Status = PilotStatus.Training;
+        Status = EmploymentStatus.Training;
     }
 
     public void Suspended()
     {
-        Status = PilotStatus.Suspended;
+        Status = EmploymentStatus.Suspended;
     }
 
     public void Retired()
     {
-        Status = PilotStatus.Retired;
+        Status = EmploymentStatus.Retired;
     }
 
     public void Archive()
     {
-        Status = PilotStatus.Archived;
+        Status = EmploymentStatus.Archived;
     }
 }

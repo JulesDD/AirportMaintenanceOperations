@@ -1,4 +1,6 @@
-﻿namespace AircraftMaintenanceOperations.API.Endpoints.Maintenance;
+﻿using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.StartMaintenanceRequest;
+
+namespace AircraftMaintenanceOperations.API.Endpoints.Maintenance;
 
 public record GetMaintenanceParameters(
     string? RequestNumber,
@@ -54,11 +56,8 @@ public class MaintenanceEndpoints : ICarterModule
             var updateCommand = new UpdateMaintenanceCommand(
                 id,
                 command.Title,
-                command.AircraftId,
                 command.Description,
-                command.RequestedDate,
-                command.DueDate,
-                command.ClosedDate);
+                command.DueDate);
             return Results.Ok(await sender.Send(updateCommand));
         })
             .WithName("UpdateMaintenance")
@@ -78,16 +77,16 @@ public class MaintenanceEndpoints : ICarterModule
             .WithSummary("Archives an existing maintenance record.")
             .WithDescription("Archive Maintenance");
 
-        group.MapPost("/{id:guid}/close", async (Guid id, ISender sender) =>
+        group.MapPost("/{id:guid}/start", async (Guid id, ISender sender) =>
         {
-            var result = await sender.Send(new CloseMaintenanceCommand(id));
+            var result = await sender.Send(new StartMaintenanceCommand(id));
             return Results.Ok(result);
         })
-            .WithName("CloseMaintenance")
-            .Produces<CloseMaintenanceResult>(StatusCodes.Status200OK)
+            .WithName("StartMaintenance")
+            .Produces<StartMaintenanceResult>(StatusCodes.Status200OK)
             .ProducesProblem(StatusCodes.Status404NotFound)
-            .WithSummary("Closes an existing maintenance record.")
-            .WithDescription("Close Maintenance");
+            .WithSummary("Starts an existing maintenance record.")
+            .WithDescription("Start Maintenance");
 
     }
 }

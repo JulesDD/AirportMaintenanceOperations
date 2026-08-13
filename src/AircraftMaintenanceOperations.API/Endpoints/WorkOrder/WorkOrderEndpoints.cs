@@ -68,7 +68,7 @@ public class WorkOrderEndpoints : ICarterModule
 
         group.MapPatch("/{id:guid}/archive", async (Guid id, ISender sender) =>
         {
-            var command = new ArchiveWorkOrderCommand(id);
+            var command = new ArchiveWorkOrderCommand(id, "");
             var result = await sender.Send(command);
             return Results.Ok(result);
         })

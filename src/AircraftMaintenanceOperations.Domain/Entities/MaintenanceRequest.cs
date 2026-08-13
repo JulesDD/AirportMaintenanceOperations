@@ -63,12 +63,6 @@ public class MaintenanceRequest : BaseEntity
         MaintenancePriority = MaintenancePriority.Critical;
     }
 
-    public void InProgressRequestStatus()
-    {
-        if (MaintenanceRequestStatus == MaintenanceRequestStatus.Closed) throw new InvalidOperationException("Cannot move closed request to in progress.");
-        MaintenanceRequestStatus = MaintenanceRequestStatus.InProgress;
-    }
-
     public void AwaitingParts()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.AwaitingParts;
@@ -77,6 +71,12 @@ public class MaintenanceRequest : BaseEntity
     public void Complete()
     {
         MaintenanceRequestStatus = MaintenanceRequestStatus.Completed;
+    }
+
+    public void Start()
+    {
+        if (MaintenanceRequestStatus != MaintenanceRequestStatus.Open) throw new InvalidOperationException("Maintenance Request can only be started from Open.");
+        MaintenanceRequestStatus = MaintenanceRequestStatus.InProgress;
     }
 
     public void Closed()

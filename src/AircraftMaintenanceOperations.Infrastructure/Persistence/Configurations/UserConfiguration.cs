@@ -7,6 +7,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Id);
 
         builder.HasIndex(x => x.Email).IsUnique();
+        builder.Property(x => x.Status).HasConversion<string>();
 
         builder.HasDiscriminator<string>("Discriminator")
             .HasValue<User>("User")

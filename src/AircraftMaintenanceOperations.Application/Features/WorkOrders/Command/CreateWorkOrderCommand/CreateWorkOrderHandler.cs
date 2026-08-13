@@ -20,7 +20,8 @@ public class CreateWorkOrderHandler(IAircraftMaintenanceDbContext dbContext, INu
             command.AircraftId,
             command.AssignedTechnicianId,
             command.WorkOrderPriority,
-            command.EstimatedCompletionDate
+            command.EstimatedCompletionDate,
+            command.LaborNotes
         );
 
         dbContext.WorkOrders.Add(workOrder);

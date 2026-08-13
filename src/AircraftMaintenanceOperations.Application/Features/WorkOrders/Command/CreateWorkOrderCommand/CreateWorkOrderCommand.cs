@@ -5,6 +5,8 @@ public record CreateWorkOrderCommand(
     Guid AircraftId,
     Guid AssignedTechnicianId,
     MaintenancePriority WorkOrderPriority,
-    DateTime EstimatedCompletionDate) : ICommand<CreatedWorkOrderResult>;
+    DateTime EstimatedCompletionDate,
+    string LaborNotes
+    ) : ICommand<CreatedWorkOrderResult>;
 
 public record CreatedWorkOrderResult(Guid Id);

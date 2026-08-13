@@ -1,532 +1,199 @@
-# Sprint 7 – Work Order Management
+Aircraft Maintenance Operations
 
-**Project:** Aircraft Maintenance Management System (AMMS)
+Project Status
 
-**Sprint Length:** 2 Weeks
+Current Sprint: Sprint 7 — Complete
 
-**Sprint Goal**
+Aircraft Maintenance Operations is a maintenance management system built with C#, .NET, ASP.NET Core, Entity Framework Core, MediatR, FluentValidation, Carter/Minimal APIs, and SQL Server.
 
-Implement the complete Work Order lifecycle by allowing Maintenance Requests to become Work Orders, automatically generating sequential identifiers, assigning technicians, tracking progress, and archiving completed work instead of deleting records.
+The current application focuses on:
 
----
+Maintenance Requests
 
-# Sprint Objectives
+Technicians
 
-At the end of Sprint 7 users will be able to:
+Work Orders
 
-- Generate Work Orders from approved Maintenance Requests
-- Automatically generate unique Work Order Numbers
-- Automatically generate Maintenance Numbers
-- Assign technicians
-- Track Work Order status
-- Archive completed Work Orders
-- Maintain a full audit trail
+Aircraft
 
----
+Personnel and employment status
 
-# User Stories
+Sprint 7 Milestone
 
-## Story 1
-**As a Maintenance Planner**
-
-I want Work Order Numbers to be generated automatically
-
-So that every work order has a unique identifier.
-
-### Acceptance Criteria
-
-- Work Order Number generated automatically
-- Cannot be manually edited
-- No duplicate numbers
-- Numbers continue after server restart
-
-Example
-
-WO-000001
-
-WO-000002
-
-WO-000003
-
----
-
-## Story 2
-
-**As a Planner**
-
-I want Maintenance Numbers generated automatically
-
-So maintenance activities have their own reference.
-
-Example
-
-MX-000001
-
-MX-000002
-
-MX-000003
-
----
-
-## Story 3
-
-**As a Planner**
-
-I want to create a Work Order from an approved Maintenance Request
-
-So technicians can begin maintenance.
-
-Acceptance Criteria
-
-- Cannot create Work Order from Cancelled Request
-- Cannot create Work Order twice
-- Request status changes to
-
-Assigned
-
----
-
-## Story 4
-
-**As a Planner**
-
-I want to assign technicians
-
-So maintenance responsibility is tracked.
-
-Acceptance Criteria
-
-- Assign one or more technicians
-- Assignment date stored
-- Assigned By stored
-- Technician can view assigned work
-
----
-
-## Story 5
-
-**As a Technician**
-
-I want to update Work Order status
-
-So everyone knows maintenance progress.
-
-Statuses
-
-- Open
-- Assigned
-- In Progress
-- Waiting Parts
-- Inspection
-- Completed
-- Archived
-
----
-
-## Story 6
-
-**As an Administrator**
-
-I want completed Work Orders archived
-
-So historical maintenance remains available.
-
-Acceptance Criteria
-
-- No physical deletion
-- Archive date stored
-- Archived By stored
-- Searchable from archive
-
----
-
-# Database Design
-
-## WorkOrders
-
-| Column | Type |
-|---------|------|
-| Id | Guid |
-| WorkOrderNumber | string |
-| MaintenanceNumber | string |
-| MaintenanceRequestId | Guid |
-| AircraftId | Guid |
-| AssignedTechnicianId | Guid |
-| Priority | int |
-| Status | int |
-| ScheduledStart | DateTime |
-| ScheduledEnd | DateTime |
-| ActualStart | DateTime? |
-| ActualEnd | DateTime? |
-| Archived | bool |
-| ArchivedDate | DateTime? |
-| ArchivedBy | string |
-| Notes | string |
-| Created | DateTime |
-| CreatedBy | string |
-
----
-
-## TechnicianAssignments
-
-| Column | Type |
-|---------|------|
-| Id | Guid |
-| WorkOrderId | Guid |
-| TechnicianId | Guid |
-| AssignedDate | DateTime |
-| AssignedBy | string |
-
-Allows multiple technicians per Work Order.
-
----
-
-# SQL Sequences
-
-Instead of manually incrementing numbers, SQL Server sequences will generate identifiers.
-
-## Work Order Sequence
-
-```sql
-CREATE SEQUENCE WorkOrderSequence
-AS INT
-START WITH 1
-INCREMENT BY 1;
-```
-
-## Maintenance Sequence
-
-```sql
-CREATE SEQUENCE MaintenanceSequence
-AS INT
-START WITH 1
-INCREMENT BY 1;
-```
-
-Example usage
-
-```sql
-SELECT NEXT VALUE FOR WorkOrderSequence;
-```
-
-returns
-
-```
-1
-2
-3
-```
-
-Application formats the number
-
-```
-WO-000001
-```
-
----
-
-# Domain Layer
-
-## Entity
-
-```
-WorkOrder
-```
-
-Properties
-
-- WorkOrderNumber
-- MaintenanceNumber
-- Status
-- Priority
-- ScheduledStart
-- ScheduledEnd
-- ActualStart
-- ActualEnd
-- Archived
-- Notes
-
-Methods
-
-```
-AssignTechnician()
-
-Start()
-
-Complete()
-
-Archive()
-
-UpdateStatus()
-```
-
----
-
-# Application Layer
-
-Commands
-
-```
-CreateWorkOrderCommand
-
-AssignTechnicianCommand
-
-StartWorkOrderCommand
-
-CompleteWorkOrderCommand
-
-ArchiveWorkOrderCommand
-
-UpdateWorkOrderStatusCommand
-```
-
-Queries
-
-```
-GetWorkOrderById
-
-GetWorkOrders
-
-GetAssignedWorkOrders
-
-GetArchivedWorkOrders
-```
-
----
-
-# Infrastructure Layer
-
-Repositories
-
-```
-IWorkOrderRepository
-```
-
-Implementation
-
-```
-WorkOrderRepository
-```
-
-Responsibilities
-
-- Create
-- Update
-- Archive
-- Search
-
----
-
-# API Endpoints
-
-## Create Work Order
-
-```
-POST
-
-/api/workorders
-```
-
----
-
-## Assign Technician
-
-```
-PUT
-
-/api/workorders/{id}/assign
-```
-
----
-
-## Update Status
-
-```
-PUT
-
-/api/workorders/{id}/status
-```
-
----
-
-## Complete
-
-```
-PUT
-
-/api/workorders/{id}/complete
-```
-
----
-
-## Archive
-
-```
-PUT
-
-/api/workorders/{id}/archive
-```
-
----
-
-## Get All
-
-```
-GET
-
-/api/workorders
-```
-
----
-
-## Get Archived
-
-```
-GET
-
-/api/workorders/archived
-```
-
----
-
-# Blazor Pages
-
-```
-Pages/
-
-WorkOrders/
-
-    Index.razor
-
-    Create.razor
-
-    Details.razor
-
-    Edit.razor
-
-    Archive.razor
-
-    AssignTechnician.razor
-```
-
----
-
-# Workflow
-
-```text
-Maintenance Request
-
-        │
-
-        ▼
-
-Approved
-
-        │
-
-        ▼
-
-Create Work Order
-
-        │
-
-        ▼
-
-Generate
-
-WO Number
-
-MX Number
-
-        │
-
-        ▼
-
-Assign Technician
-
-        │
-
-        ▼
-
-In Progress
-
-        │
-
-        ▼
+Sprint 7 completed the core API workflows for Maintenance Requests, Technicians, and Work Orders.
 
 Completed
 
-        │
+Maintenance Request commands and queries
 
-        ▼
+Maintenance Request API endpoints
 
-Archive
-```
+Maintenance Request lifecycle operations
 
----
+Technician commands and queries
 
-# Business Rules
+Technician validation and handlers
 
-✔ Work Orders originate only from approved Maintenance Requests
+Technician API endpoints
 
-✔ One Maintenance Request creates one Work Order
+Work Order commands and queries
 
-✔ Work Order Number cannot change
+Work Order creation
 
-✔ Maintenance Number cannot change
+Work Order API endpoints
 
-✔ Completed Work Orders cannot be deleted
+Maintenance Request number generation
 
-✔ Archived Work Orders remain searchable
+Work Order number generation
 
-✔ Every assignment is audited
+Shared EmploymentStatus model
 
-✔ Status history is preserved
+End-to-end API endpoint testing
 
----
+Domain Model
 
-# Definition of Done
+User
+├── EmploymentStatus
+├── EmployeeNumber
+├── FirstName
+├── LastName
+├── Email
+└── PhoneNumber
 
-- SQL sequences implemented
-- Automatic Work Order numbering
-- Automatic Maintenance numbering
-- Work Order entity completed
-- Maintenance Request conversion implemented
-- Technician assignment working
-- Status updates functioning
-- Archive functionality implemented
-- API endpoints tested
-- Blazor UI complete
-- Unit tests passing
-- Integration tests passing
-- Documentation updated
+Pilot
+├── Rank
+└── LicenseNumber
 
----
+Technician
+├── CertificationLevel
+└── YearsOfExperience
 
-# Estimated Story Points
+Employment status belongs to User because it describes the employee rather than the employee's profession.
 
-| Story | Points |
-|--------|-------:|
-| SQL Sequences | 3 |
-| Work Order Creation | 5 |
-| Maintenance Request Conversion | 5 |
-| Technician Assignment | 5 |
-| Status Workflow | 3 |
-| Archive Functionality | 3 |
-| Testing | 5 |
+Maintenance Request Lifecycle
 
-**Total:** **29 Story Points**
+Open
+  ↓
+InProgress
+  ↓
+AwaitingParts
+  ↓
+InProgress
+  ↓
+Completed
+  ↓
+Closed
+  ↓
+Archived
 
----
+Work Order
 
-# Future Enhancements (Sprint 8+)
+Work Order status remains a separate concept from Maintenance Request status because the two represent different business processes.
 
-- Digital technician sign-off
-- Labor hour tracking
-- Tool and equipment tracking
-- Parts consumption from inventory
-- Attach maintenance manuals and documents
-- Electronic work packages
-- Digital inspection checklists
-- Supervisor approval workflow
-- Aircraft return-to-service certification
+API Workflow
+
+Create Maintenance Request
+          ↓
+       Open
+          ↓
+POST /api/maintenance/{id}/start
+          ↓
+      InProgress
+          ↓
+Create Work Order
+          ↓
+   Work Order Created
+
+A Work Order can only be created when the related Maintenance Request is in the required lifecycle state.
+
+Architecture
+
+src/
+├── AircraftMaintenanceOperations.Domain
+├── AircraftMaintenanceOperations.Application
+├── AircraftMaintenanceOperations.Infrastructure
+└── AircraftMaintenanceOperations.API
+
+Domain
+
+Entities, enums, domain behavior, and interfaces.
+
+Application
+
+Commands, queries, handlers, validators, DTOs/results, and MediatR behaviors.
+
+Infrastructure
+
+EF Core, SQL Server persistence, configurations, and infrastructure implementations.
+
+API
+
+Carter endpoint modules, HTTP routing, Swagger/OpenAPI, and request/response handling.
+
+Technology Stack
+
+C#
+
+.NET
+
+ASP.NET Core
+
+Carter / Minimal APIs
+
+MediatR
+
+FluentValidation
+
+Entity Framework Core
+
+SQL Server
+
+Docker
+
+Git/GitHub
+
+Testing Status
+
+Sprint 7 included manual end-to-end API testing.
+
+Testing uncovered and resolved issues involving:
+
+JSON enum values
+
+GUID request values
+
+Maintenance Request lifecycle state
+
+TPH inheritance
+
+Shared employment status
+
+EF Core database mappings
+
+Required Work Order notes
+
+Next: Sprint 8
+
+Sprint 8 will focus on completing and hardening the Work Order workflow.
+
+Planned areas:
+
+Work Order PATCH/update
+
+Work Order lifecycle validation
+
+Automated tests
+
+Number-generator concurrency hardening
+
+Database/migration cleanup
+
+Notes/documentation improvements
+
+API and domain cleanup
+
+Development Philosophy
+
+The project is being developed incrementally. The goal is not simply to make endpoints compile; business rules should live in the domain, application workflows should be explicit, and API testing should expose missing use cases.
+
+Sprint 7 reinforced that approach by uncovering missing lifecycle operations and inconsistencies between the application model and database model.

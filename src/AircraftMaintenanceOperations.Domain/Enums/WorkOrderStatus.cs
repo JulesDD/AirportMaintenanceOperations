@@ -1,6 +1,5 @@
 ﻿namespace AircraftMaintenanceOperations.Domain.Enums;
 
-
 public enum WorkOrderStatus
 {
     Open,

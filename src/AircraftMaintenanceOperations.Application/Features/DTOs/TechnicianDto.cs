@@ -7,7 +7,7 @@ public record TechnicianDto
     string LastName,
     string Email,
     string PhoneNumber,
-    TechnicianStatus Status,
+    EmploymentStatus Status,
     CertificationLevel CertificationLevel,
     int YearsOfExperience
 );
