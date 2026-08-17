@@ -8,6 +8,7 @@ public class WorkOrder : BaseEntity
     public string? Title { get; private set; }
     public string? Description { get; private set; }    
     public Guid AircraftId { get; private set; }
+    public Aircraft Aircraft { get; private set; }
     public Guid AssignedTechnicianId { get; private set; }
     public MaintenancePriority WorkOrderPriority { get; private set; }
     public WorkOrderStatus WorkOrderStatus { get; private set; }

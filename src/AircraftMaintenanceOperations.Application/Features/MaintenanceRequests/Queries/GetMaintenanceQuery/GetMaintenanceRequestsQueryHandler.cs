@@ -1,10 +1,9 @@
 ﻿namespace AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Queries.GetMaintenanceQuery;
 
-public record GetMaintenanceRequestsQueryHandler(IAircraftMaintenanceDbContext dbContext, INumberGenerator numberGenerator) : IQueryHandler<GetMaintenanceRequestsQuery, GetMaintenanceResult>
+public record GetMaintenanceRequestsQueryHandler(IAircraftMaintenanceDbContext dbContext) : IQueryHandler<GetMaintenanceRequestsQuery, GetMaintenanceResult>
 {
     public async Task<GetMaintenanceResult> Handle(GetMaintenanceRequestsQuery query, CancellationToken cancellationToken)
     {
-        var requestNumber = await numberGenerator.GenerateMaintenanceRequestNumberAsync();
 
         var mQuery = dbContext.MaintenanceRequests.AsNoTracking();
         if(!string.IsNullOrWhiteSpace(query.RequestedBy)) mQuery = mQuery.Where(mq => mq.RequestedBy == query.RequestedBy);
@@ -15,7 +14,7 @@ public record GetMaintenanceRequestsQueryHandler(IAircraftMaintenanceDbContext d
         var maintenanceRequests = await mQuery
             .Select(mq => new MaintenanceRequestDto
             (
-                requestNumber,
+                mq.RequestNumber,
                 mq.Title,
                 mq.Description,
                 mq.AircraftId,

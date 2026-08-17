@@ -1,341 +1,817 @@
-Sprint 8
+# Sprint 8 — Entity & DTO Implementation
+
+## Sprint Goal
+
+Complete the remaining domain model for the application by creating all required entities and DTOs for:
+
+* Inventory
+* Maintenance Scheduling
+* Maintenance records
+* Supervisors
+* Administration
+* Users / roles
+* Locations
+* Equipment / assets
+* Supporting relationships and status models
+
+**Primary objective:** Have the complete entity + DTO layer modeled before implementing the next round of business logic and endpoints.
+
+---
+
+# Phase 1 — Sprint 7 Carry-Forward
+
+## Review Existing Work
+
+* [ ] Review all entities currently implemented
+* [ ] Review all DTOs currently implemented
+* [ ] Review all endpoints completed in Sprint 7
+* [ ] Confirm every Sprint 7 endpoint has been tested
+* [ ] Identify any entities that were created as temporary placeholders
+* [ ] Identify duplicate models or DTOs
+* [ ] Identify properties that need to be renamed or standardized
+* [ ] Review existing entity relationships
+* [ ] Review existing foreign keys
+* [ ] Review existing enums/status values
+* [ ] Review existing validation rules
+
+## Clean-Up
+
+* [ ] Remove obsolete properties
+* [ ] Remove obsolete DTOs
+* [ ] Standardize naming
+* [ ] Standardize ID conventions
+* [ ] Standardize timestamps
+* [ ] Standardize nullable vs required properties
+* [ ] Standardize navigation properties
+* [ ] Confirm entities follow the project's existing architecture
+
+---
+
+# Phase 2 — Core Asset / Equipment Entities
+
+These entities should provide the foundation for inventory and maintenance.
+
+## Equipment / Asset
+
+* [ ] Create `Equipment` entity
+* [ ] Add equipment identifier
+* [ ] Add name
+* [ ] Add description
+* [ ] Add equipment type
+* [ ] Add manufacturer
+* [ ] Add model
+* [ ] Add serial number
+* [ ] Add purchase information
+* [ ] Add installation date
+* [ ] Add current location
+* [ ] Add current status
+* [ ] Add active/inactive state
+* [ ] Add maintenance relationship
+* [ ] Add inventory relationship where appropriate
+
+## Equipment Type
+
+* [ ] Create `EquipmentType` entity
+* [ ] Add name
+* [ ] Add description
+* [ ] Add category
+* [ ] Add active status
+
+## Location
+
+* [ ] Create/complete `Location` entity
+* [ ] Add name
+* [ ] Add description
+* [ ] Add location type
+* [ ] Add address/details as required
+* [ ] Add active status
+* [ ] Establish equipment relationship
+* [ ] Establish inventory relationship
+
+---
+
+# Phase 3 — Inventory Entities
+
+Sprint 8 should finish the inventory domain rather than leaving it partially modeled.
+
+## Inventory Item
+
+* [ ] Create/complete `InventoryItem`
+* [ ] Add item number/SKU
+* [ ] Add name
+* [ ] Add description
+* [ ] Add category
+* [ ] Add quantity
+* [ ] Add minimum quantity
+* [ ] Add maximum quantity
+* [ ] Add unit of measure
+* [ ] Add storage location
+* [ ] Add active status
+* [ ] Add reorder information
+
+## Inventory Category
+
+* [ ] Create `InventoryCategory`
+* [ ] Add name
+* [ ] Add description
+* [ ] Add active status
+
+## Inventory Transaction
+
+* [ ] Create `InventoryTransaction`
+* [ ] Add transaction type
+* [ ] Add quantity
+* [ ] Add date/time
+* [ ] Add inventory item relationship
+* [ ] Add user relationship
+* [ ] Add reason/reference
+* [ ] Add related maintenance work order where applicable
+
+## Inventory Adjustment
+
+* [ ] Create `InventoryAdjustment`
+* [ ] Add adjustment type
+* [ ] Add quantity before adjustment
+* [ ] Add quantity after adjustment
+* [ ] Add reason
+* [ ] Add user
+* [ ] Add timestamp
+
+## Supplier / Vendor
+
+* [ ] Create/complete `Supplier`
+* [ ] Add supplier name
+* [ ] Add contact information
+* [ ] Add address
+* [ ] Add active status
+* [ ] Establish inventory relationship
+
+---
+
+# Phase 4 — Maintenance Scheduling
+
+This is the major new Sprint 8 domain.
+
+## Maintenance Schedule
+
+* [ ] Create `MaintenanceSchedule`
+* [ ] Add schedule name
+* [ ] Add description
+* [ ] Add equipment relationship
+* [ ] Add maintenance type
+* [ ] Add frequency
+* [ ] Add frequency unit
+* [ ] Add start date
+* [ ] Add next scheduled date
+* [ ] Add last completed date
+* [ ] Add estimated duration
+* [ ] Add priority
+* [ ] Add active status
+* [ ] Add assigned supervisor
+* [ ] Add required parts/inventory relationship
+
+## Maintenance Task
+
+* [ ] Create `MaintenanceTask`
+* [ ] Add task name
+* [ ] Add description
+* [ ] Add instructions
+* [ ] Add estimated duration
+* [ ] Add priority
+* [ ] Add required skill/type
+* [ ] Add completion requirements
+* [ ] Establish schedule relationship
+
+## Maintenance Type
+
+* [ ] Create `MaintenanceType`
+* [ ] Add name
+* [ ] Add description
+* [ ] Add type/category
+* [ ] Add active status
+
+Examples:
+
+* Preventative
+* Corrective
+* Emergency
+* Inspection
+* Scheduled
+* Unscheduled
+
+## Maintenance Work Order
+
+* [ ] Create `MaintenanceWorkOrder`
+* [ ] Add work order number
+* [ ] Add equipment
+* [ ] Add maintenance schedule
+* [ ] Add maintenance type
+* [ ] Add description
+* [ ] Add priority
+* [ ] Add status
+* [ ] Add scheduled date
+* [ ] Add start date
+* [ ] Add completion date
+* [ ] Add estimated duration
+* [ ] Add actual duration
+* [ ] Add assigned supervisor
+* [ ] Add assigned technician/employee
+* [ ] Add notes
+* [ ] Add completion notes
+
+## Maintenance Status
+
+* [ ] Create maintenance status enum
+* [ ] Define statuses
+* [ ] Ensure status transitions are logically supported
+
+Possible states:
+
+`Scheduled → Assigned → InProgress → Completed`
+
+Additional states:
+
+`Cancelled`
+
+`OnHold`
+
+`Overdue`
+
+---
+
+# Phase 5 — Maintenance Parts / Inventory Integration
+
+Maintenance and inventory should connect cleanly.
+
+## Maintenance Part
+
+* [ ] Create `MaintenancePart`
+* [ ] Link maintenance work order
+* [ ] Link inventory item
+* [ ] Add required quantity
+* [ ] Add used quantity
+* [ ] Add returned quantity
+* [ ] Add part status
+
+## Maintenance Material Usage
 
-Sprint Goal
+* [ ] Create `MaintenanceMaterialUsage`
+* [ ] Add inventory item
+* [ ] Add work order
+* [ ] Add quantity used
+* [ ] Add date/time
+* [ ] Add employee/user
+* [ ] Add inventory transaction relationship
+
+## Validation
+
+* [ ] Prevent maintenance from consuming unavailable inventory
+* [ ] Validate required parts
+* [ ] Validate quantities
+* [ ] Determine whether unused parts can be returned
+* [ ] Determine how inventory transactions are recorded
+
+---
+
+# Phase 6 — Supervisor Domain
+
+Supervisors should be represented as an actual domain role rather than simply adding random supervisor properties throughout the system.
+
+## Supervisor
+
+* [ ] Create/complete `Supervisor`
+* [ ] Link supervisor to user
+* [ ] Add employee identifier
+* [ ] Add department
+* [ ] Add active status
+* [ ] Add assigned location
+* [ ] Add responsibilities where required
 
-Finish the remaining Sprint 7 work, harden the existing application, then begin Inventory.
+## Supervisor Relationships
 
-After completing Sprint 7 and testing every API endpoint, we uncovered several areas that should be finished before expanding the system.
+* [ ] Supervisor → Maintenance Schedule
+* [ ] Supervisor → Maintenance Work Order
+* [ ] Supervisor → Equipment
+* [ ] Supervisor → Employees/Technicians
+* [ ] Supervisor → Inventory activity where appropriate
 
-Sprint 8 will therefore begin with Sprint 7 leftovers and cleanup, followed by testing/hardening, and then move into the Inventory work.
+## Supervisor DTOs
 
-Phase 1 — Sprint 7 Leftovers
+* [ ] Create `SupervisorDto`
+* [ ] Create `SupervisorSummaryDto`
+* [ ] Create `CreateSupervisorDto`
+* [ ] Create `UpdateSupervisorDto`
+* [ ] Create `SupervisorDetailsDto`
 
-1. Work Order PATCH / Update
+---
 
-This is the first functional item to complete.
+# Phase 7 — Administration Domain
 
-Create UpdateWorkOrderCommand
+Administration should have its own domain representation.
 
-Define which Work Order properties can be updated
+## Administrator
 
-Create validation
+* [ ] Create/complete `Administrator`
+* [ ] Link administrator to user
+* [ ] Add employee identifier
+* [ ] Add department
+* [ ] Add active status
 
-Create handler
+## Role
 
-Apply updates through domain behavior
+* [ ] Create `Role` entity if not already provided by the authentication system
+* [ ] Define administrator role
+* [ ] Define supervisor role
+* [ ] Define technician/employee role
+* [ ] Define standard user role
 
-Add the Work Order PATCH endpoint
+## Permission
 
-Test successful updates
+* [ ] Create `Permission` entity if required by the architecture
+* [ ] Add permission name
+* [ ] Add description
+* [ ] Add permission category
 
-Test invalid updates
+## Role Permission
 
-Test missing Work Orders
+* [ ] Create `RolePermission`
+* [ ] Link role
+* [ ] Link permission
 
-2. Review Work Order Lifecycle
+## Administration Relationships
 
-Review the current Work Order status model and make sure the allowed transitions are intentional.
+* [ ] Administrator → Users
+* [ ] Administrator → Inventory
+* [ ] Administrator → Equipment
+* [ ] Administrator → Maintenance schedules
+* [ ] Administrator → Maintenance work orders
+* [ ] Administrator → Locations
+* [ ] Administrator → Reports/settings where applicable
 
-Review WorkOrderStatus
+---
 
-Review existing Work Order domain methods
+# Phase 8 — User / Employee Entities
 
-Define valid transitions
+Before completing Admin/Supervisor DTOs, make sure the underlying user model is clean.
 
-Prevent invalid transitions
+## User
 
-Confirm documentation requirements for status changes
+* [ ] Review existing `User`
+* [ ] Confirm user ID
+* [ ] Confirm username/email
+* [ ] Confirm first/last name
+* [ ] Confirm active status
+* [ ] Confirm role relationship
+* [ ] Confirm created/updated timestamps
 
-Confirm completion requirements
+## Employee
 
-Test valid transitions
+* [ ] Create/complete `Employee`
+* [ ] Add employee number
+* [ ] Add user relationship
+* [ ] Add department
+* [ ] Add job title
+* [ ] Add active status
 
-Test invalid transitions
+## Technician
 
-Important: Do not create additional lifecycle commands simply for completeness. Add them when the application workflow actually requires them.
+* [ ] Create `Technician` if required by the domain
+* [ ] Link technician to employee
+* [ ] Add skill information if required
+* [ ] Add certification information if required
+* [ ] Add active status
 
-3. Review Maintenance Request Lifecycle
+---
 
-Sprint 7 added the ability to move a Maintenance Request from Open to InProgress.
+# Phase 9 — DTO Layer
 
-Review StartMaintenanceCommand
+Every new entity should have a deliberate DTO strategy.
 
-Review the POST /api/maintenance/{id}/start endpoint
+## Standard DTOs
 
-Ensure Open -> InProgress is the intended transition
+For major entities:
 
-Remove duplicate lifecycle methods if any remain
+* [ ] `XDto`
+* [ ] `XSummaryDto`
+* [ ] `XDetailsDto`
+* [ ] `CreateXDto`
+* [ ] `UpdateXDto`
 
-Review other Maintenance Request transitions
+Do **not** automatically create unnecessary DTOs for every tiny lookup entity.
 
-Prevent invalid transitions where appropriate
+---
 
-The current intended workflow is:
+# Maintenance DTOs
 
-Open
-  ↓
-Start
-  ↓
-InProgress
-  ↓
-Create Work Order
+* [ ] `MaintenanceScheduleDto`
 
-4. Work Order Documentation
+* [ ] `MaintenanceScheduleSummaryDto`
 
-Sprint 7 established that LaborNotes is required by the database.
+* [ ] `MaintenanceScheduleDetailsDto`
 
-Confirm Work Order creation supplies required notes
+* [ ] `CreateMaintenanceScheduleDto`
 
-Confirm status changes document the relevant work
+* [ ] `UpdateMaintenanceScheduleDto`
 
-Review whether LaborNotes should eventually be renamed to WorkOrderNotes
+* [ ] `MaintenanceTaskDto`
 
-Defer broader MaintenanceNotes design until the notes model is intentionally planned
+* [ ] `CreateMaintenanceTaskDto`
 
-Phase 2 — Database and Code Cleanup
+* [ ] `UpdateMaintenanceTaskDto`
 
-5. Review Sprint 7 Migration Changes
+* [ ] `MaintenanceTypeDto`
 
-Sprint 7 included a migration with several changes beyond the employment-status work.
+* [ ] `CreateMaintenanceTypeDto`
 
-Review:
+* [ ] `UpdateMaintenanceTypeDto`
 
-MaintenanceRequests.RequestNumber uniqueness
+* [ ] `MaintenanceWorkOrderDto`
 
-RequestNumber column length
+* [ ] `MaintenanceWorkOrderSummaryDto`
 
-Users.Status / EmploymentStatus mapping
+* [ ] `MaintenanceWorkOrderDetailsDto`
 
-Work Order Title
+* [ ] `CreateMaintenanceWorkOrderDto`
 
-Work Order Description
+* [ ] `UpdateMaintenanceWorkOrderDto`
 
-Current migration snapshot
+* [ ] `MaintenancePartDto`
 
-Future migrations should follow:
+* [ ] `CreateMaintenancePartDto`
 
-Create migration
-      ↓
-Review generated changes
-      ↓
-Confirm only intended changes are included
-      ↓
-Apply migration
-      ↓
-Test
+* [ ] `UpdateMaintenancePartDto`
 
-6. Code Cleanup
+* [ ] `MaintenanceMaterialUsageDto`
 
-Remove unused methods
+* [ ] `CreateMaintenanceMaterialUsageDto`
 
-Remove duplicate domain methods
+---
 
-Remove obsolete status enums
+# Inventory DTOs
 
-Remove unused configuration
+* [ ] `InventoryItemDto`
 
-Review nullable reference warnings
+* [ ] `InventoryItemSummaryDto`
 
-Review TODOs
+* [ ] `InventoryItemDetailsDto`
 
-Review dead code
+* [ ] `CreateInventoryItemDto`
 
-Run a full solution build
+* [ ] `UpdateInventoryItemDto`
 
-Keep cleanup targeted. Avoid a broad refactor before the functional work is stable.
+* [ ] `InventoryCategoryDto`
 
-Phase 3 — Testing and Hardening
+* [ ] `CreateInventoryCategoryDto`
 
-7. Automated Testing
+* [ ] `UpdateInventoryCategoryDto`
 
-Sprint 7 relied heavily on manual API testing. Sprint 8 should begin turning the important discoveries into automated tests.
+* [ ] `InventoryTransactionDto`
 
-Domain Tests
+* [ ] `CreateInventoryTransactionDto`
 
-Maintenance Request Open -> InProgress
+* [ ] `InventoryAdjustmentDto`
 
-Invalid Maintenance Request transitions
+* [ ] `CreateInventoryAdjustmentDto`
 
-Work Order lifecycle transitions
+* [ ] `SupplierDto`
 
-Invalid Work Order transitions
+* [ ] `CreateSupplierDto`
 
-Required Work Order notes
+* [ ] `UpdateSupplierDto`
 
-Employment Status behavior
+---
 
-Handler Tests
+# Equipment DTOs
 
-Create Work Order
+* [ ] `EquipmentDto`
 
-Update Work Order
+* [ ] `EquipmentSummaryDto`
 
-Start Maintenance Request
+* [ ] `EquipmentDetailsDto`
 
-Not-found scenarios
+* [ ] `CreateEquipmentDto`
 
-Invalid lifecycle scenarios
+* [ ] `UpdateEquipmentDto`
 
-API / Integration Tests
+* [ ] `EquipmentTypeDto`
 
-Create Maintenance Request
+* [ ] `CreateEquipmentTypeDto`
 
-Start Maintenance Request
+* [ ] `UpdateEquipmentTypeDto`
 
-Create Work Order
+* [ ] `LocationDto`
 
-Update Work Order
+* [ ] `CreateLocationDto`
 
-Get Maintenance Requests
+* [ ] `UpdateLocationDto`
 
-Get Technicians
+---
 
-Get Work Orders
+# Administration DTOs
 
-8. Number Generator Hardening
+* [ ] `AdministratorDto`
 
-Sprint 7 deliberately simplified the number generator rather than retaining incomplete retry logic.
+* [ ] `AdministratorSummaryDto`
 
-Sprint 8 should revisit concurrency properly.
+* [ ] `CreateAdministratorDto`
 
-Review INumberGenerator
+* [ ] `UpdateAdministratorDto`
 
-Review counter persistence
+* [ ] `RoleDto`
 
-Determine the concurrency strategy
+* [ ] `CreateRoleDto`
 
-Test concurrent number generation
+* [ ] `UpdateRoleDto`
 
-Ensure duplicate numbers cannot be generated
+* [ ] `PermissionDto`
 
-Keep the implementation simple and explicit
+* [ ] `CreatePermissionDto`
 
-Do not reintroduce retry/detach logic without a defined concurrency strategy.
+* [ ] `UpdatePermissionDto`
 
-Phase 4 — Inventory
+* [ ] `RolePermissionDto`
 
-Inventory begins after the most important Sprint 7 leftovers are under control.
+---
 
-Before writing entities or endpoints:
+# Supervisor / Employee DTOs
 
-Review the Inventory requirements/specification
+* [ ] `SupervisorDto`
 
-Define the Inventory domain model
+* [ ] `SupervisorSummaryDto`
 
-Identify inventory types/categories
+* [ ] `SupervisorDetailsDto`
 
-Identify quantity and availability requirements
+* [ ] `CreateSupervisorDto`
 
-Identify locations/storage requirements
+* [ ] `UpdateSupervisorDto`
 
-Identify reorder/stock requirements if applicable
+* [ ] `EmployeeDto`
 
-Identify relationships with Aircraft, Maintenance Requests, Work Orders, and Technicians
+* [ ] `EmployeeSummaryDto`
 
-Define Inventory status concepts
+* [ ] `CreateEmployeeDto`
 
-Decide which concepts belong in the Domain layer
+* [ ] `UpdateEmployeeDto`
 
-Define the first Inventory use cases
+* [ ] `TechnicianDto`
 
-Inventory Implementation Order
+* [ ] `TechnicianSummaryDto`
 
-Requirements
-    ↓
-Domain Model
-    ↓
-Entities / Value Objects / Enums
-    ↓
-EF Core Configuration
-    ↓
-Commands / Queries
-    ↓
-Handlers / Validation
-    ↓
-API Endpoints
-    ↓
-Testing
+* [ ] `CreateTechnicianDto`
 
-Do not invent Inventory requirements before reviewing the project's existing Inventory notes/specification.
+* [ ] `UpdateTechnicianDto`
 
-Sprint 8 Priorities
+---
 
-Priority 1 — Finish Sprint 7 leftovers
+# Phase 10 — Relationships & Database Configuration
 
-Work Order PATCH
+Once the entities exist:
 
-Work Order lifecycle review
+* [ ] Configure primary keys
+* [ ] Configure foreign keys
+* [ ] Configure one-to-one relationships
+* [ ] Configure one-to-many relationships
+* [ ] Configure many-to-many relationships
+* [ ] Configure delete behavior
+* [ ] Configure required relationships
+* [ ] Configure optional relationships
+* [ ] Configure indexes
+* [ ] Configure unique constraints
+* [ ] Configure string lengths
+* [ ] Configure decimal precision
+* [ ] Configure timestamps
+* [ ] Configure enums
+* [ ] Configure default values
 
-Maintenance Request lifecycle cleanup
+## Important Relationship Review
 
-Work Order documentation review
+Verify these relationships explicitly:
 
-Priority 2 — Harden the existing system
+* [ ] Equipment → EquipmentType
+* [ ] Equipment → Location
+* [ ] Equipment → MaintenanceSchedule
+* [ ] MaintenanceSchedule → MaintenanceTask
+* [ ] MaintenanceSchedule → MaintenanceWorkOrder
+* [ ] MaintenanceWorkOrder → Equipment
+* [ ] MaintenanceWorkOrder → Supervisor
+* [ ] MaintenanceWorkOrder → Technician
+* [ ] MaintenanceWorkOrder → MaintenancePart
+* [ ] MaintenancePart → InventoryItem
+* [ ] InventoryItem → InventoryCategory
+* [ ] InventoryItem → Location
+* [ ] InventoryTransaction → InventoryItem
+* [ ] InventoryTransaction → User
+* [ ] Supervisor → User/Employee
+* [ ] Administrator → User/Employee
+* [ ] Technician → User/Employee
 
-Migration/database cleanup
+---
 
-Code cleanup
+# Phase 11 — Mapping
 
-Automated tests
+* [ ] Review existing AutoMapper/manual mapping strategy
+* [ ] Create entity → DTO mappings
+* [ ] Create DTO → entity mappings
+* [ ] Create create/update mappings
+* [ ] Handle nested relationships
+* [ ] Prevent sensitive properties from being exposed
+* [ ] Prevent navigation-property loops
+* [ ] Verify summary DTOs don't load unnecessary data
 
-Number-generator concurrency
+---
 
-Priority 3 — Begin Inventory
+# Phase 12 — Validation
 
-Inventory requirements
+For every Create/Update DTO:
 
-Inventory domain model
+* [ ] Required fields
+* [ ] String lengths
+* [ ] Numeric ranges
+* [ ] Date validation
+* [ ] Enum validation
+* [ ] Foreign-key validation
+* [ ] Duplicate detection where necessary
+* [ ] Business-rule validation
 
-First Inventory use cases
+Special attention:
 
-Inventory implementation
+* [ ] Maintenance schedule cannot have an invalid frequency
+* [ ] Scheduled date cannot conflict with required rules
+* [ ] Equipment must exist before scheduling maintenance
+* [ ] Inventory item must exist before assigning a maintenance part
+* [ ] Inventory quantities cannot become invalid
+* [ ] Supervisor must be active before assignment
+* [ ] Technician must be active before assignment
 
-Sprint 8 Definition of Done
+---
 
-Sprint 8 should be considered complete when:
+# Phase 13 — Database Migration
 
-Work Order PATCH is implemented and tested
+After the entity model is stable:
 
-Work Order lifecycle rules are explicit
+* [ ] Review generated migration
+* [ ] Check every new table
+* [ ] Check every foreign key
+* [ ] Check indexes
+* [ ] Check column lengths
+* [ ] Check nullable columns
+* [ ] Check cascade behavior
+* [ ] Check enum storage
+* [ ] Check default values
+* [ ] Run migration against development database
+* [ ] Verify database schema
+* [ ] Verify no unintended schema changes
+* [ ] Seed lookup/reference data where appropriate
 
-Maintenance Request lifecycle is clean and intentional
+---
 
-Work Order documentation rules are enforced
+# Phase 14 — DTO Compilation & Integration Check
 
-Sprint 7 migration/database cleanup is addressed
+* [ ] Build entire solution
+* [ ] Resolve entity configuration errors
+* [ ] Resolve mapping errors
+* [ ] Resolve nullable-reference warnings
+* [ ] Resolve circular reference issues
+* [ ] Resolve EF Core relationship errors
+* [ ] Verify migrations
+* [ ] Verify application starts successfully
 
-Core automated tests exist
+---
 
-Number generation has a defined concurrency strategy
+# Phase 15 — Sprint 8 Testing
 
-Inventory requirements are documented
+Entity-level testing:
 
-Inventory domain model is established
+* [ ] Create each major entity
+* [ ] Update each major entity
+* [ ] Verify required fields
+* [ ] Verify invalid data is rejected
+* [ ] Verify relationships
+* [ ] Verify foreign keys
+* [ ] Verify DTO mapping
+* [ ] Verify nested DTOs
+* [ ] Verify database persistence
 
-Initial Inventory use cases are implemented and tested
+Maintenance-specific testing:
 
-Full solution builds successfully
+* [ ] Create maintenance schedule
+* [ ] Assign equipment
+* [ ] Assign supervisor
+* [ ] Generate/associate work order
+* [ ] Assign technician
+* [ ] Associate required parts
+* [ ] Consume inventory
+* [ ] Complete maintenance
+* [ ] Verify maintenance history
+* [ ] Verify inventory transaction
 
-Tests pass
+---
 
-README is updated
+# Sprint 8 Definition of Done
 
-Sprint 8 retrospective is completed
+Sprint 8 is complete when:
 
-Sprint 8 Guiding Principle
+* [ ] All required domain entities exist
+* [ ] Inventory entities are complete
+* [ ] Maintenance scheduling entities are complete
+* [ ] Maintenance work-order entities are complete
+* [ ] Admin entities are complete
+* [ ] Supervisor entities are complete
+* [ ] Employee/technician entities are complete
+* [ ] Equipment/location entities are complete
+* [ ] DTOs exist for all major entities
+* [ ] Create/Update DTOs exist where required
+* [ ] Entity relationships are configured
+* [ ] DTO mappings are configured
+* [ ] Validation is implemented
+* [ ] EF Core migration succeeds
+* [ ] Database schema is verified
+* [ ] Solution builds cleanly
+* [ ] Existing Sprint 7 functionality still works
+* [ ] New entities can be persisted successfully
+* [ ] No unnecessary entities/DTOs remain
+* [ ] Sprint 8 retrospective is documented
 
-Finish, harden, then expand.
+---
 
-Sprint 7 proved that end-to-end testing exposes important domain gaps. Sprint 8 should use those lessons to stabilize the existing system before expanding into Inventory.
+# Recommended Sprint 8 Order
 
-The goal is not to make Sprint 8 another massive sprint.
+### Day/Stage 1 — Foundation
 
-The order is:
+* [ ] Review Sprint 7
+* [ ] Review current entities
+* [ ] Review current DTOs
+* [ ] Establish final domain model
 
-Sprint 7 leftovers
-        ↓
-Cleanup
-        ↓
-Testing / Hardening
-        ↓
-Inventory
+### Stage 2 — Core Domain
+
+* [ ] Equipment
+* [ ] Equipment Type
+* [ ] Location
+* [ ] Employee
+* [ ] User/Role relationships
+
+### Stage 3 — Inventory
+
+* [ ] Inventory Item
+* [ ] Inventory Category
+* [ ] Supplier
+* [ ] Inventory Transaction
+* [ ] Inventory Adjustment
+
+### Stage 4 — Maintenance
+
+* [ ] Maintenance Type
+* [ ] Maintenance Schedule
+* [ ] Maintenance Task
+* [ ] Maintenance Work Order
+* [ ] Maintenance Part
+* [ ] Material Usage
+
+### Stage 5 — People / Administration
+
+* [ ] Supervisor
+* [ ] Administrator
+* [ ] Technician
+* [ ] Role
+* [ ] Permission
+
+### Stage 6 — DTOs
+
+* [ ] Create DTOs
+* [ ] Update DTOs
+* [ ] Read DTOs
+* [ ] Summary DTOs
+* [ ] Details DTOs
+
+### Stage 7 — Integration
+
+* [ ] Entity configurations
+* [ ] Relationships
+* [ ] Mappings
+* [ ] Validation
+* [ ] Migration
+
+### Stage 8 — Verification
+
+* [ ] Build
+* [ ] Database test
+* [ ] Entity tests
+* [ ] Mapping tests
+* [ ] Regression test Sprint 7 functionality
+
+---
+
+# Sprint 8 Deliverable
+
+At the end of Sprint 8, we should have a **complete domain model**, not necessarily a complete feature set.
+
+The architectural progression should be:
+
+**Entities → Relationships → DTOs → Mapping → Validation → Database**
+
+Then Sprint 9 can focus on:
+
+**Services → Business Logic → Endpoints → Authorization → Workflows → Testing**
+
+This keeps us from repeating the Sprint 7 situation where we're building endpoints while parts of the domain model are still moving underneath them.

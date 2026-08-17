@@ -16,7 +16,7 @@ public class Aircraft : BaseEntity
 
     public Pilot? CurrentPilot { get; set; } = null!;
     public IEnumerable<MaintenanceRequest> MaintenanceRequests { get; set; } = new List<MaintenanceRequest>();
-    //public IEnumerable<MaintenanceHistory> MaintenanceHistories { get; set; } = new List<MaintenanceHistory>();
+    public IEnumerable<WorkOrder> WorkOrders { get; set; } = new List<WorkOrder>();
 
     public void Ground()
     {
