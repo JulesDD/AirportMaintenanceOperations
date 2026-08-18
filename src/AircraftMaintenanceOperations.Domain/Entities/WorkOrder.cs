@@ -139,5 +139,4 @@ public class WorkOrder : BaseEntity
         LaborNotes = laborNotes;
         return new(true);
     }
-
 }
