@@ -34,6 +34,8 @@ public static class InfrastructureServiceRegistration
             };
         });
 
+        services.AddScoped<IJwtTokenService, JwtTokenService>();
+
 
         return services;
     }
