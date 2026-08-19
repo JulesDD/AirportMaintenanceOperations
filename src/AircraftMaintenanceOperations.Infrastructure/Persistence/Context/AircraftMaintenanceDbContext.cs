@@ -1,8 +1,6 @@
-﻿using AircraftMaintenanceOperations.Application.Interfaces;
+﻿namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
 
-namespace AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
-
-public class AircraftMaintenanceDbContext : DbContext, IAircraftMaintenanceDbContext
+public class AircraftMaintenanceDbContext : IdentityDbContext<ApplicationUser, IdentityRole<Guid>, Guid>, IAircraftMaintenanceDbContext
 {
     public AircraftMaintenanceDbContext(DbContextOptions<AircraftMaintenanceDbContext> options) : base(options)
     {
@@ -21,7 +19,7 @@ public class AircraftMaintenanceDbContext : DbContext, IAircraftMaintenanceDbCon
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AircraftMaintenanceDbContext).Assembly);
         base.OnModelCreating(modelBuilder);
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(AircraftMaintenanceDbContext).Assembly);
     }
 }

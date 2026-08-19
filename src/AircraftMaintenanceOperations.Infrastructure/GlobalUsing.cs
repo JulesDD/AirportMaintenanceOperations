@@ -1,8 +1,15 @@
 ﻿global using AircraftMaintenanceOperations.Application.Interfaces;
 global using AircraftMaintenanceOperations.Domain.Entities;
+global using AircraftMaintenanceOperations.Domain.Interfaces;
+global using AircraftMaintenanceOperations.Infrastructure.Authentication;
 global using AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
+global using AircraftMaintenanceOperations.Infrastructure.Services;
+global using Microsoft.AspNetCore.Authentication.JwtBearer;
+global using Microsoft.AspNetCore.Identity;
+global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Metadata.Builders;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
-global using AircraftMaintenanceOperations.Domain.Interfaces;
+global using Microsoft.IdentityModel.Tokens;
+global using System.Text;
