@@ -6,6 +6,7 @@ global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries
 global using AircraftMaintenanceOperations.Application.Features.Aircraft.Queries.GetAircraftById;
 global using AircraftMaintenanceOperations.Application.Features.AssignPilot.Command;
 global using AircraftMaintenanceOperations.Application.Features.DTOs;
+global using AircraftMaintenanceOperations.Application.Features.Login.Commands.CreateLogin;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.ArchiveMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.CreatedMaintenanceRequest;
 global using AircraftMaintenanceOperations.Application.Features.MaintenanceRequests.Commands.StartMaintenanceRequest;
@@ -22,9 +23,16 @@ global using AircraftMaintenanceOperations.Application.Features.Technician.Comma
 global using AircraftMaintenanceOperations.Application.Features.Technician.Commands.UpdateTechnician;
 global using AircraftMaintenanceOperations.Application.Features.Technician.Queries.GetTechnician;
 global using AircraftMaintenanceOperations.Application.Features.Technician.Queries.GetTechnicianById;
+global using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.ArchiveWorkOrderCommand;
+global using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.AssignTechnicianCommand;
+global using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.CreateWorkOrderCommand;
+global using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.UpdateWorkOrderCommand;
+global using AircraftMaintenanceOperations.Application.Features.WorkOrders.Queries.GetWorkOrderByIdQuery;
+global using AircraftMaintenanceOperations.Application.Features.WorkOrders.Queries.GetWorkOrderQuery;
 global using AircraftMaintenanceOperations.Domain.Enums;
 global using AircraftMaintenanceOperations.Infrastructure.Extensions;
 global using Carter;
 global using Mapster;
 global using MediatR;
 global using System.Reflection;
+

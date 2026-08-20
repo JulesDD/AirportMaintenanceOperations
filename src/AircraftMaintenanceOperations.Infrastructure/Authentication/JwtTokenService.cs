@@ -7,8 +7,9 @@ public class JwtTokenService : IJwtTokenService
     {
         _jwtSettings = jwtSettings.Value;
     }
-    public string GenerateToken(Guid userId, string username, IEnumerable<string> roles)
+    public JwtTokenResult GenerateToken(Guid userId, string username, IEnumerable<string> roles)
     {
+        var expiresAt = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes);
         var claims = new List<Claim>
         {
             new(JwtRegisteredClaimNames.Sub, userId.ToString()),
@@ -22,10 +23,11 @@ public class JwtTokenService : IJwtTokenService
         issuer: _jwtSettings.Issuer,
         audience: _jwtSettings.Audience,
         claims: claims,
-        expires: DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes),
+        expires: expiresAt,
         signingCredentials: credentials);
 
-        return new JwtSecurityTokenHandler().WriteToken(token);
+        var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
 
+        return new JwtTokenResult(accessToken, expiresAt);
     }
 }

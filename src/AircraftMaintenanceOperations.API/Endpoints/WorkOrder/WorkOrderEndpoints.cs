@@ -1,12 +1,4 @@
-﻿using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.ArchiveWorkOrderCommand;
-using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.AssignTechnicianCommand;
-using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.CreateWorkOrderCommand;
-using AircraftMaintenanceOperations.Application.Features.WorkOrders.Command.UpdateWorkOrderCommand;
-using AircraftMaintenanceOperations.Application.Features.WorkOrders.Queries.GetWorkOrderByIdQuery;
-using AircraftMaintenanceOperations.Application.Features.WorkOrders.Queries.GetWorkOrderQuery;
-using AircraftMaintenanceOperations.Domain.Entities;
-
-namespace AircraftMaintenanceOperations.API.Endpoints.WorkOrder;
+﻿namespace AircraftMaintenanceOperations.API.Endpoints.WorkOrder;
 
 public class WorkOrderEndpoints : ICarterModule
 {

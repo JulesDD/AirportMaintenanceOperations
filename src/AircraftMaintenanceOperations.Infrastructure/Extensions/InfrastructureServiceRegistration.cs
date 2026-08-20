@@ -30,11 +30,13 @@ public static class InfrastructureServiceRegistration
                 ValidateIssuerSigningKey = true,
                 ValidIssuer = configuration["Jwt:Issuer"],
                 ValidAudience = configuration["Jwt:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecurityKey"]!))
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["Jwt:SecretKey"]!))
             };
         });
 
         services.AddScoped<IJwtTokenService, JwtTokenService>();
+
+        services.AddScoped<IAuthenticationService, IdentityAuthenticationService>();
 
 
         return services;

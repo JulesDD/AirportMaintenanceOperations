@@ -4,7 +4,7 @@ public record LoginDto
 (
     string AccessToken,
     DateTime ExpiresAt,
-    string UserId,
+    Guid UserId,
     string UserName,
-    string Role
+    IEnumerable<string> Roles
 );

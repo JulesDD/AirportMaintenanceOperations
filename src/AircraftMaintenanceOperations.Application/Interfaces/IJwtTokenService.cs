@@ -2,5 +2,5 @@
 
 public interface IJwtTokenService
 {
-    string GenerateToken(Guid userId, string username, IEnumerable<string> roles);
+    JwtTokenResult GenerateToken(Guid userId, string username, IEnumerable<string> roles);
 }
