@@ -16,6 +16,7 @@ public class Technician : User
     {
         return new Technician
         {
+            Id = Guid.NewGuid(),
             EmployeeNumber = employeeNumber,
             FirstName = firstName,
             LastName = lastName,

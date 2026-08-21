@@ -35,4 +35,6 @@ global using Carter;
 global using Mapster;
 global using MediatR;
 global using System.Reflection;
-
+global using AircraftMaintenanceOperations.Infrastructure.Authentication;
+global using AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
+global using Microsoft.AspNetCore.Identity;

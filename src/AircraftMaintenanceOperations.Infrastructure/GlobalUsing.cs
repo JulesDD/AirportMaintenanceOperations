@@ -1,5 +1,6 @@
 ﻿global using AircraftMaintenanceOperations.Application.Interfaces;
 global using AircraftMaintenanceOperations.Domain.Entities;
+global using AircraftMaintenanceOperations.Domain.Enums;
 global using AircraftMaintenanceOperations.Domain.Interfaces;
 global using AircraftMaintenanceOperations.Infrastructure.Authentication;
 global using AircraftMaintenanceOperations.Infrastructure.Persistence.Context;
